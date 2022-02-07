@@ -1,0 +1,11 @@
+D:\VisualC#\EveryTeacher\bin\Debug\EveryTeacher.exe.config
+D:\VisualC#\EveryTeacher\bin\Debug\EveryTeacher.exe
+D:\VisualC#\EveryTeacher\bin\Debug\EveryTeacher.pdb
+D:\VisualC#\EveryTeacher\obj\Debug\EveryTeacher.csproj.AssemblyReference.cache
+D:\VisualC#\EveryTeacher\obj\Debug\EveryTeacher.csproj.SuggestedBindingRedirects.cache
+D:\VisualC#\EveryTeacher\obj\Debug\EveryTeacher.Form1.resources
+D:\VisualC#\EveryTeacher\obj\Debug\EveryTeacher.Properties.Resources.resources
+D:\VisualC#\EveryTeacher\obj\Debug\EveryTeacher.csproj.GenerateResource.cache
+D:\VisualC#\EveryTeacher\obj\Debug\EveryTeacher.csproj.CoreCompileInputs.cache
+D:\VisualC#\EveryTeacher\obj\Debug\EveryTeacher.exe
+D:\VisualC#\EveryTeacher\obj\Debug\EveryTeacher.pdb
