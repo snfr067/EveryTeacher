@@ -10,11 +10,14 @@ using System.IO;
 using Application = System.Windows.Forms.Application;
 using System.Data;
 using NPOI.SS.UserModel;
-using DataTable = System.Data.DataTable;
 using NPOI.XSSF.UserModel;
 using NPOI.HSSF.UserModel;
+using DataTable = System.Data.DataTable;
 using Label = System.Windows.Forms.Label;
 using System.Text;
+using System.Reflection;
+using System.Diagnostics;
+using System.Runtime.InteropServices;
 
 namespace EveryTeacher
 {
@@ -61,9 +64,28 @@ namespace EveryTeacher
         [STAThread]
         static void Main()
         {
+            string rsNPOI = "EveryTeacher.NPOI.dll";
+            string rsOOXML = "EveryTeacher.NPOI.OOXML.dll";
+            string rs4Net = "EveryTeacher.NPOI.OpenXml4Net.dll";
+            string rsFormats = "EveryTeacher.NPOI.OpenXmlFormats.dll";
+            string rsICSharp = "EveryTeacher.ICSharpCode.SharpZipLib.dll";
+            
+            EmbeddedAssembly.Load(rsNPOI, "NPOI.dll");
+            EmbeddedAssembly.Load(rsOOXML, "NPOI.OOXML.dll");
+            EmbeddedAssembly.Load(rs4Net, "NPOI.OpenXml4Net.dll");
+            EmbeddedAssembly.Load(rsFormats, "NPOI.OpenXmlFormats.dll");
+            EmbeddedAssembly.Load(rsICSharp, "ICSharpCode.SharpZipLib.dll");
+
+            AppDomain.CurrentDomain.AssemblyResolve += new ResolveEventHandler(CurrentDomain_AssemblyResolve);
+
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new ImportPath());
+        }
+
+        static Assembly CurrentDomain_AssemblyResolve(object sender, ResolveEventArgs args)
+        {
+            return EmbeddedAssembly.Get(args.Name);
         }
 
 
@@ -118,6 +140,7 @@ namespace EveryTeacher
 
             //離開應用程式
             App.Quit();
+            KillExcelApp(App);
 
             foreach (string check in checkHeaders)
             {
@@ -270,6 +293,8 @@ namespace EveryTeacher
 
             //離開應用程式
             App.Quit();
+
+            KillExcelApp(App);
         }
 
         static void writeToExcel(string path, int indexOfSheet)
@@ -306,6 +331,7 @@ namespace EveryTeacher
 
             //離開應用程式
             App.Quit();
+            KillExcelApp(App);
         }
 
         public static DataSet ExcelToDataSet(string filePath, bool isFirstLineColumnName)
@@ -457,6 +483,31 @@ namespace EveryTeacher
             catch (Exception ex)
             {
                 MessageBox.Show("CSV檔案錯誤: "+ex.Message);
+            }
+        }
+
+        // release excel resource
+        [DllImport("User32.dll")]
+        public static extern int GetWindowThreadProcessId
+        (IntPtr hWnd, out int ProcessId);
+        public static void KillExcelApp(Excel.Application app)
+        {
+            if (app != null)
+            {
+                try
+                {
+                    app.Quit();
+                    IntPtr intptr = new IntPtr(app.Hwnd);
+                    var ps = Process.GetProcessesByName("EXCEL").ToList();
+                    int id;
+                    GetWindowThreadProcessId(intptr, out id);
+                    var p = Process.GetProcessById(id);
+                    //if (p != null)
+                    p.Kill();
+                }
+                catch (Exception)
+                {
+                }
             }
         }
 
