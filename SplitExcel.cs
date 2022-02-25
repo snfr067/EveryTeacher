@@ -92,18 +92,9 @@ namespace EveryTeacher
 
             Excel.Application App = new Excel.Application();
 
-            //取得欲寫入的檔案路徑
-            Excel.Workbook Wbook = App.Workbooks.Open(tchFile, 0, true, 5, "", "", true,
-                 Microsoft.Office.Interop.Excel.XlPlatform.xlWindows
-                  , "\t", false, false, 0, true, 1, 0);
-
-            //將欲修改的檔案屬性設為非唯讀(Normal)，若寫入檔案為唯讀，則會無法寫入
-            System.IO.FileInfo xlsAttribute = new FileInfo(tchFile);
-            xlsAttribute.Attributes = FileAttributes.Normal;
-
-            //取得batchItem的工作表
-            Excel.Worksheet Wsheet = (Excel.Worksheet)Wbook.Sheets[1];
-            Excel.Range firstDataRow;// = Wsheet.Rows[5];
+            Excel.Workbook Wbook;
+            System.IO.FileInfo xlsAttribute;
+            Excel.Worksheet Wsheet;
             Excel.Range row;
             Excel.Range cellClass;
             Excel.Range cellStNum;
@@ -135,8 +126,7 @@ namespace EveryTeacher
                 tchFile_pbar.Minimum = 0;
                 tchFile_pbar.Maximum = dt.Rows.Count;
                 tchFile_pbar.Value = 0;
-
-                //tchFileP_txt.Text = tchFile_pbar.Value + "/" + tchFile_pbar.Maximum;
+                
                 tchFileP_txt.Text = "已產出"+ fileCount + "個檔案";
 
                 while (dt.Rows.Count > 0)
@@ -147,7 +137,26 @@ namespace EveryTeacher
                     sendMail[sendMailIndex] = new SendMail();
                     sendMail[sendMailIndex].SendName = teacherName;
                     sendMail[sendMailIndex].Sendto = dt.Rows[0][Program.HEADER_TCH_EMAIL].ToString();
+                    sendMail[sendMailIndex].Attach = dt.Rows[0][Program.HEADER_TEACHERS].ToString()
+                        + "老師.pdf";
 
+                    dstFile = exportPath + DIR_NAME_TEACHERS
+                        + dt.Rows[0][Program.HEADER_TEACHERS].ToString() + ".xlsx";
+
+                    if (!File.Exists(dstFile))
+                        File.Copy(tchFile, dstFile);
+
+                    //取得欲寫入的檔案路徑
+                    Wbook = App.Workbooks.Open(dstFile, 0, true, 5, "", "", true,
+                         Microsoft.Office.Interop.Excel.XlPlatform.xlWindows
+                          , "\t", false, false, 0, true, 1, 0);
+
+                    //將欲修改的檔案屬性設為非唯讀(Normal)，若寫入檔案為唯讀，則會無法寫入
+                    xlsAttribute = new FileInfo(dstFile);
+                    xlsAttribute.Attributes = FileAttributes.Normal;
+
+                    //取得工作表
+                    Wsheet = (Excel.Worksheet)Wbook.Sheets[1];
 
                     foreach (DataRow dataRow in readRows)
                     {
@@ -180,23 +189,7 @@ namespace EveryTeacher
                                 else
                                     cellStPhone.Value = dataRow[Program.HEADER_STUDENT_PHONE].ToString();
 
-                                cellRelief.Value2 = dataRow[Program.HEADER_RELIEF].ToString();
-
-
-                                
-                                if (dstFile.Equals(""))
-                                {
-                                    dstFile = exportPath + DIR_NAME_TEACHERS
-                                        + dataRow[Program.HEADER_TEACHERS].ToString() 
-                                        + "老師.xlsx";
-
-                                    sendMail[sendMailIndex].Attach = dataRow[Program.HEADER_TEACHERS].ToString()
-                                        + "老師.pdf";
-
-                                    if (!File.Exists(dstFile))
-                                        File.Copy(tchFile, dstFile);
-
-                                }
+                                cellRelief.Value2 = dataRow[Program.HEADER_RELIEF].ToString();                                
 
                                 dt.Rows.RemoveAt(0 + otherTchIndex);
                                 //這邊的index代表要刪掉的資料
@@ -227,11 +220,8 @@ namespace EveryTeacher
                     sendMailIndex++;
                     fileCount++;
 
-                    Wbook = App.Workbooks.Open(tchFile, 0, true, 5, "", "", true,
-                     Microsoft.Office.Interop.Excel.XlPlatform.xlWindows
-                      , "\t", false, false, 0, true, 1, 0);
-                    xlsAttribute.Attributes = FileAttributes.Normal;
-                    Wsheet = (Excel.Worksheet)Wbook.Sheets[1];
+                    //關閉EXCEL
+                    Wbook.Close();
 
                     if (readRows.Count == dt.Rows.Count)
                     {
@@ -257,8 +247,6 @@ namespace EveryTeacher
                 }
             }
 
-            //關閉EXCEL
-            Wbook.Close();
 
             //離開應用程式
             App.Quit();
@@ -273,18 +261,9 @@ namespace EveryTeacher
 
             Excel.Application App = new Excel.Application();
 
-            //取得欲寫入的檔案路徑
-            Excel.Workbook Wbook = App.Workbooks.Open(depFile, 0, true, 5, "", "", true,
-                 Microsoft.Office.Interop.Excel.XlPlatform.xlWindows
-                  , "\t", false, false, 0, true, 1, 0);
-
-            //將欲修改的檔案屬性設為非唯讀(Normal)，若寫入檔案為唯讀，則會無法寫入
-            System.IO.FileInfo xlsAttribute = new FileInfo(depFile);
-            xlsAttribute.Attributes = FileAttributes.Normal;
-
-            //取得batchItem的工作表
-            Excel.Worksheet Wsheet = (Excel.Worksheet)Wbook.Sheets[1];
-            Excel.Range firstDataRow;// = Wsheet.Rows[5];
+            Excel.Workbook Wbook;
+            System.IO.FileInfo xlsAttribute;
+            Excel.Worksheet Wsheet;
             Excel.Range row;
             Excel.Range cellTchName;
             Excel.Range cellClass;
@@ -320,6 +299,28 @@ namespace EveryTeacher
                 {
                     departmentName = dt.Rows[0][Program.HEADER_DEPERTMENT].ToString();
                     otherDepIndex = 0;       //換系時歸零
+                    
+                    dstFile = exportPath + DIR_NAME_DEPARTMENT
+                            + dt.Rows[0][Program.HEADER_DEPERTMENT].ToString() + ".xlsx";
+
+                    sendMail[sendMailIndex] = new SendMail();
+                    sendMail[sendMailIndex].Attach = dt.Rows[0][Program.HEADER_DEPERTMENT].ToString()
+                        + ".pdf";
+
+                    if (!File.Exists(dstFile))
+                        File.Copy(depFile, dstFile);
+
+                    //取得欲寫入的檔案路徑
+                    Wbook = App.Workbooks.Open(dstFile, 0, true, 5, "", "", true,
+                         Microsoft.Office.Interop.Excel.XlPlatform.xlWindows
+                          , "\t", false, false, 0, true, 1, 0);
+
+                    //將欲修改的檔案屬性設為非唯讀(Normal)，若寫入檔案為唯讀，則會無法寫入
+                    xlsAttribute = new FileInfo(dstFile);
+                    xlsAttribute.Attributes = FileAttributes.Normal;
+
+                    //取得工作表
+                    Wsheet = (Excel.Worksheet)Wbook.Sheets[1];
 
                     foreach (DataRow dataRow in readRows)
                     {
@@ -354,19 +355,7 @@ namespace EveryTeacher
 
                                 System.Diagnostics.Debug.WriteLine("write:" + dataRow[Program.HEADER_STUDENT_NAME].ToString());
 
-                                if (dstFile.Equals(""))
-                                {
-                                    dstFile = exportPath + DIR_NAME_DEPARTMENT
-                                        + dataRow[Program.HEADER_DEPERTMENT].ToString() + ".xlsx";
 
-                                    sendMail[sendMailIndex] = new SendMail();
-                                    sendMail[sendMailIndex].Attach = dataRow[Program.HEADER_DEPERTMENT].ToString()
-                                        + ".pdf";
-
-                                    if (!File.Exists(dstFile))
-                                        File.Copy(depFile, dstFile);
-
-                                }
 
                                 dt.Rows.RemoveAt(0 + otherDepIndex);    
 
@@ -392,12 +381,9 @@ namespace EveryTeacher
                     dstFile = "";
                     sendMailIndex++;
                     fileCount++;
-
-                    Wbook = App.Workbooks.Open(depFile, 0, true, 5, "", "", true,
-                     Microsoft.Office.Interop.Excel.XlPlatform.xlWindows
-                      , "\t", false, false, 0, true, 1, 0);
-                    xlsAttribute.Attributes = FileAttributes.Normal;
-                    Wsheet = (Excel.Worksheet)Wbook.Sheets[1];
+                    
+                    //關閉EXCEL
+                    Wbook.Close();
 
                     if (readRows.Count == dt.Rows.Count)
                     {
@@ -422,8 +408,6 @@ namespace EveryTeacher
                 }
             }
 
-            //關閉EXCEL
-            Wbook.Close();
 
             //離開應用程式
             App.Quit();
@@ -438,18 +422,10 @@ namespace EveryTeacher
 
             Excel.Application App = new Excel.Application();
 
-            //取得欲寫入的檔案路徑
-            Excel.Workbook Wbook = App.Workbooks.Open(colFile, 0, true, 5, "", "", true,
-                 Microsoft.Office.Interop.Excel.XlPlatform.xlWindows
-                  , "\t", false, false, 0, true, 1, 0);
 
-            //將欲修改的檔案屬性設為非唯讀(Normal)，若寫入檔案為唯讀，則會無法寫入
-            System.IO.FileInfo xlsAttribute = new FileInfo(colFile);
-            xlsAttribute.Attributes = FileAttributes.Normal;
-
-            //取得batchItem的工作表
-            Excel.Worksheet Wsheet = (Excel.Worksheet)Wbook.Sheets[1];
-            Excel.Range firstDataRow;// = Wsheet.Rows[5];
+            Excel.Workbook Wbook;
+            System.IO.FileInfo xlsAttribute;
+            Excel.Worksheet Wsheet;
             Excel.Range row;// = Wsheet.Rows[5];
             Excel.Range cellDep;
             Excel.Range cellClass;
@@ -485,6 +461,29 @@ namespace EveryTeacher
                 {
                     collegeName = dt.Rows[0][Program.HEADER_COLLEGE].ToString();
                     otherColIndex = 0;
+
+                    dstFile = exportPath + DIR_NAME_COLLEGE
+                            + dt.Rows[0][Program.HEADER_COLLEGE].ToString() + ".xlsx";
+
+                    sendMail[sendMailIndex] = new SendMail();
+                    sendMail[sendMailIndex].Attach = dt.Rows[0][Program.HEADER_COLLEGE].ToString()
+                        + ".pdf";
+
+                    if (!File.Exists(dstFile))
+                        File.Copy(colFile, dstFile);
+
+                    //取得欲寫入的檔案路徑
+                    Wbook = App.Workbooks.Open(dstFile, 0, true, 5, "", "", true,
+                         Microsoft.Office.Interop.Excel.XlPlatform.xlWindows
+                          , "\t", false, false, 0, true, 1, 0);
+
+                    //將欲修改的檔案屬性設為非唯讀(Normal)，若寫入檔案為唯讀，則會無法寫入
+                    xlsAttribute = new FileInfo(dstFile);
+                    xlsAttribute.Attributes = FileAttributes.Normal;
+
+                    //取得工作表
+                    Wsheet = (Excel.Worksheet)Wbook.Sheets[1];
+
                     foreach (DataRow dataRow in readRows)
                     {
                         bool isNull = (dataRow == null);
@@ -517,21 +516,7 @@ namespace EveryTeacher
 
 
                                 System.Diagnostics.Debug.WriteLine("write:" + dataRow[Program.HEADER_STUDENT_NAME].ToString());
-
-                                if (dstFile.Equals(""))
-                                {
-                                    dstFile = exportPath + DIR_NAME_COLLEGE
-                                        + dataRow[Program.HEADER_COLLEGE].ToString() + ".xlsx";
-
-                                    sendMail[sendMailIndex] = new SendMail();
-                                    sendMail[sendMailIndex].Attach = dataRow[Program.HEADER_COLLEGE].ToString()
-                                          + ".pdf";
-
-                                    if (!File.Exists(dstFile))
-                                        File.Copy(colFile, dstFile);
-
-                                }
-
+                                
                                 dt.Rows.RemoveAt(0 + otherColIndex);    
 
                                 colDataRowIndex++;
@@ -557,11 +542,9 @@ namespace EveryTeacher
                     sendMailIndex++;
                     fileCount++;
 
-                    Wbook = App.Workbooks.Open(colFile, 0, true, 5, "", "", true,
-                     Microsoft.Office.Interop.Excel.XlPlatform.xlWindows
-                      , "\t", false, false, 0, true, 1, 0);
-                    xlsAttribute.Attributes = FileAttributes.Normal;
-                    Wsheet = (Excel.Worksheet)Wbook.Sheets[1];
+
+                    //關閉EXCEL
+                    Wbook.Close();
 
                     if (readRows.Count == dt.Rows.Count)
                     {
@@ -586,9 +569,6 @@ namespace EveryTeacher
                     System.Diagnostics.Debug.WriteLine("------------");
                 }
             }
-
-            //關閉EXCEL
-            Wbook.Close();
 
             //離開應用程式
             App.Quit();

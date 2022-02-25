@@ -50,6 +50,7 @@
             this.ckTch_txt = new System.Windows.Forms.Label();
             this.ckDep_txt = new System.Windows.Forms.Label();
             this.ckCol_txt = new System.Windows.Forms.Label();
+            this.version_txt = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // importOrgPath_btn
@@ -173,10 +174,16 @@
             this.ckCol_txt.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
             this.ckCol_txt.Name = "ckCol_txt";
             // 
+            // version_txt
+            // 
+            resources.ApplyResources(this.version_txt, "version_txt");
+            this.version_txt.Name = "version_txt";
+            // 
             // ImportPath
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.version_txt);
             this.Controls.Add(this.ckCol_txt);
             this.Controls.Add(this.ckDep_txt);
             this.Controls.Add(this.ckTch_txt);
@@ -228,6 +235,7 @@
         private System.Windows.Forms.Label ckTch_txt;
         private System.Windows.Forms.Label ckDep_txt;
         private System.Windows.Forms.Label ckCol_txt;
+        private System.Windows.Forms.Label version_txt;
     }
 }
 

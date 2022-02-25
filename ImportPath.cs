@@ -44,6 +44,8 @@ namespace EveryTeacher
         {
             InitializeComponent();
             this.FormClosed += new FormClosedEventHandler(this.ImportPathClosed);
+
+            version_txt.Text = APP_VERSION;
         }
 
         private void ImportPath_Load(object sender, EventArgs e)
