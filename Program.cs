@@ -30,7 +30,7 @@ namespace EveryTeacher
         public static string HEADER_STUDENT_NUM = "學號";
         public static string HEADER_STUDENT_NAME = "姓名";
         public static string HEADER_STUDENT_PHONE = "學生手機";
-        public static string HEADER_RELIEF = "減免類別";
+        public static string HEADER_RELIEF = "學雜費補助類別";
         public static string HEADER_TCH_EMAIL = "導師Email"; 
 
 
@@ -57,6 +57,9 @@ namespace EveryTeacher
         public static string DIR_NAME_TEACHERS = "寄給導師的\\";
         public static string DIR_NAME_DEPARTMENT = "寄給系主任的\\";
         public static string DIR_NAME_COLLEGE = "寄給院長的\\";
+
+        public static int HEADER_ROW = 4;
+        public static int FIRST_DATA_ROW = 5;
 
         /// <summary>
         /// 應用程式的主要進入點。
