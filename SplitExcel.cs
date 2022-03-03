@@ -101,13 +101,14 @@ namespace EveryTeacher
             Excel.Range cellStName;
             Excel.Range cellStPhone;
             Excel.Range cellRelief;
+            Excel.Range[] cellHeaders;
             int tchWriteIndex = 5;
             int tchDataRowIndex = tchWriteIndex;
             string teacherName = "";
             int otherTchIndex = 0;
             int fileCount = 0;
-
-
+            string[] headerStrArr = readStrArrExcelCellinRow(tchFile, EXAMPLE_HEADER_ROW);
+            cellHeaders = new Excel.Range[headerStrArr.Length];
 
             //創資料夾
             if (!Directory.Exists(exportPath + DIR_NAME_TEACHERS))
@@ -131,17 +132,17 @@ namespace EveryTeacher
 
                 while (dt.Rows.Count > 0)
                 {
-                    teacherName = dt.Rows[0][Program.HEADER_TEACHERS].ToString();
+                    teacherName = dt.Rows[0][Program.MAIL_HEADER_TEACHERS].ToString();
                     otherTchIndex = 0;       //換老師時歸零
 
                     sendMail[sendMailIndex] = new SendMail();
                     sendMail[sendMailIndex].SendName = teacherName;
-                    sendMail[sendMailIndex].Sendto = dt.Rows[0][Program.HEADER_TCH_EMAIL].ToString();
-                    sendMail[sendMailIndex].Attach = dt.Rows[0][Program.HEADER_TEACHERS].ToString()
+                    sendMail[sendMailIndex].Sendto = dt.Rows[0][Program.MAIL_HEADER_TCH_EMAIL].ToString();
+                    sendMail[sendMailIndex].Attach = dt.Rows[0][Program.MAIL_HEADER_TEACHERS].ToString()
                         + "老師.pdf";
 
                     dstFile = exportPath + DIR_NAME_TEACHERS
-                        + dt.Rows[0][Program.HEADER_TEACHERS].ToString() + ".xlsx";
+                        + dt.Rows[0][Program.MAIL_HEADER_TEACHERS].ToString() + ".xlsx";
 
                     if (!File.Exists(dstFile))
                         File.Copy(tchFile, dstFile);
@@ -163,17 +164,17 @@ namespace EveryTeacher
                         bool isNull = (dataRow == null);
                         if (dataRow != null)
                         {
-                            if (teacherName.Equals(dataRow[Program.HEADER_TEACHERS].ToString()))        //過濾老師
+                            if (teacherName.Equals(dataRow[Program.MAIL_HEADER_TEACHERS].ToString()))        //過濾老師
                             {
                                 System.Diagnostics.Debug.WriteLine(
                                     dataRow[Program.HEADER_STUDENT_NAME].ToString() + "," +
-                                    dataRow[Program.HEADER_TEACHERS].ToString() + "," +
-                                    dataRow[Program.HEADER_TCH_EMAIL].ToString());
+                                    dataRow[Program.MAIL_HEADER_TEACHERS].ToString() + "," +
+                                    dataRow[Program.MAIL_HEADER_TCH_EMAIL].ToString());
 
                                 val += dataRow[Program.HEADER_CLASS].ToString();
                                 row = Wsheet.Rows[tchDataRowIndex];
 
-                                cellClass = Wsheet.Cells[tchDataRowIndex, Program.INDEX_TCH_CLASS];
+                                /*cellClass = Wsheet.Cells[tchDataRowIndex, Program.INDEX_TCH_CLASS];
                                 cellStNum = Wsheet.Cells[tchDataRowIndex, Program.INDEX_TCH_STUDENT_NUM];
                                 cellStName = Wsheet.Cells[tchDataRowIndex, Program.INDEX_TCH_STUDENT_NAME];
                                 cellStPhone = Wsheet.Cells[tchDataRowIndex, Program.INDEX_TCH_STUDENT_PHONE];
@@ -189,7 +190,14 @@ namespace EveryTeacher
                                 else
                                     cellStPhone.Value = dataRow[Program.HEADER_STUDENT_PHONE].ToString();
 
-                                cellRelief.Value2 = dataRow[Program.HEADER_RELIEF].ToString();                                
+                                cellRelief.Value2 = dataRow[Program.HEADER_RELIEF].ToString();    */     
+                                
+                                for(int i = 0; i < cellHeaders.Length; i++)
+                                {
+                                    cellHeaders[i] = Wsheet.Cells[tchDataRowIndex, i+1];
+                                    cellHeaders[i].NumberFormat = "@";
+                                    cellHeaders[i].Value2 = dataRow[headerStrArr[i]].ToString();
+                                }
 
                                 dt.Rows.RemoveAt(0 + otherTchIndex);
                                 //這邊的index代表要刪掉的資料
@@ -339,7 +347,7 @@ namespace EveryTeacher
                                 cellStPhone = Wsheet.Cells[depDataRowIndex, Program.INDEX_DEP_STUDENT_PHONE];
                                 cellRelief = Wsheet.Cells[depDataRowIndex, Program.INDEX_DEP_RELIEF];
 
-                                cellTchName.Value2 = dataRow[Program.HEADER_TEACHERS].ToString();
+                                cellTchName.Value2 = dataRow[Program.MAIL_HEADER_TEACHERS].ToString();
                                 cellClass.Value2 = dataRow[Program.HEADER_CLASS].ToString();
                                 cellStNum.Value2 = dataRow[Program.HEADER_STUDENT_NUM].ToString();
                                 cellStName.Value2 = dataRow[Program.HEADER_STUDENT_NAME].ToString();

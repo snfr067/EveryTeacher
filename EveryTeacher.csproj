@@ -140,6 +140,12 @@
   <ItemGroup>
     <Compile Include="EmbeddedAssembly.cs" />
     <Compile Include="SendMail.cs" />
+    <Compile Include="SendMailDataSelect.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SendMailDataSelect.Designer.cs">
+      <DependentUpon>SendMailDataSelect.cs</DependentUpon>
+    </Compile>
     <Compile Include="SplitExcel.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -167,6 +173,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="SendMailDataSelect.resx">
+      <DependentUpon>SendMailDataSelect.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="SplitExcel.resx">
       <DependentUpon>SplitExcel.cs</DependentUpon>
     </EmbeddedResource>

@@ -29,8 +29,8 @@ namespace EveryTeacher
         static string DEPARTMENT_FILE_NAME = "範例檔系主任.xlsx";
         static string COLLEGE_FILE_NAME = "範例檔院長.xlsx";
         static string EXPORT_PATH_NAME = "輸出檔案";
-        
 
+        string[] headers;
         string fileName = "";
         string pathName = "";
 
@@ -55,32 +55,35 @@ namespace EveryTeacher
                 System.Windows.Forms.Application.StartupPath + "\\" + ORIGIN_FILE_NAME;
             importTchPath_txtbx.Text =
                 System.Windows.Forms.Application.StartupPath + "\\" + TEACHER_FILE_NAME;
-            importDepPath_txtbx.Text =
-                System.Windows.Forms.Application.StartupPath + "\\" + DEPARTMENT_FILE_NAME;
-            importColPath_txtbx.Text =
-                System.Windows.Forms.Application.StartupPath + "\\" + COLLEGE_FILE_NAME;
             exportPath_txtbx.Text =
                 System.Windows.Forms.Application.StartupPath + "\\" + EXPORT_PATH_NAME + "\\";
 
+            reloadHeaders();
         }
 
         private void initUI()
         {
             ckOrg_txt.Text = "確認中...";
             ckTch_txt.Text = "確認中...";
-            ckDep_txt.Text = "確認中...";
-            ckCol_txt.Text = "確認中...";
 
             ckOrg_txt.ForeColor = System.Drawing.Color.Orange;
             ckTch_txt.ForeColor = System.Drawing.Color.Orange;
-            ckDep_txt.ForeColor = System.Drawing.Color.Orange;
-            ckCol_txt.ForeColor = System.Drawing.Color.Orange;
 
             ckOrg_txt.Visible = false;
             ckTch_txt.Visible = false;
-            ckDep_txt.Visible = false;
-            ckCol_txt.Visible = false;
         }
+
+        private void reloadHeaders()
+        {
+            header_combox.Items.Clear();
+            headers = readStrArrExcelCellinRow(importOrgPath_txtbx.Text, ORIGIN_HEADER_ROW);
+            foreach (string header in headers)
+            {
+                header_combox.Items.Add(header);
+            }
+            header_combox.SelectedIndex = 0;
+        }
+
 
         private void ImportPathClosed(object sender, FormClosedEventArgs e)
         {
@@ -93,8 +96,11 @@ namespace EveryTeacher
         {
             fileName = ImportExcelFile();
 
-            if(!fileName.Equals(""))
-                importOrgPath_txtbx.Text = fileName;            
+            if (!fileName.Equals(""))
+            {
+                importOrgPath_txtbx.Text = fileName;
+                reloadHeaders();
+            }
         }
         
         private void importTchPath_btn_Click(object sender, EventArgs e)
@@ -104,21 +110,7 @@ namespace EveryTeacher
             if (!fileName.Equals(""))
                 importTchPath_txtbx.Text = fileName;
         }
-
-        private void importDepPath_btn_Click(object sender, EventArgs e)
-        {
-            fileName = ImportExcelFile();
-
-            if (!fileName.Equals(""))
-                importDepPath_txtbx.Text = fileName;
-        }
-        private void importColPath_btn_Click(object sender, EventArgs e)
-        {
-            fileName = ImportExcelFile();
-
-            if (!fileName.Equals(""))
-                importColPath_txtbx.Text = fileName;
-        }
+        
         private void exportPath_btn_Click(object sender, EventArgs e)
         {
             pathName = getSelectedFolderPath();
@@ -139,6 +131,8 @@ namespace EveryTeacher
             next_btn.Text = "小等一下...";
             next_btn.Enabled = false;
 
+            header_combox.Enabled = false;
+
             errorResult = checkAnyError();
             if (!errorResult.Equals(""))
             {
@@ -149,8 +143,6 @@ namespace EveryTeacher
             {
                 orgFilePath = importOrgPath_txtbx.Text;
                 tchFilePath = importTchPath_txtbx.Text;
-                depFilePath = importDepPath_txtbx.Text;
-                colFilePath = importColPath_txtbx.Text;
                 exportPath = exportPath_txtbx.Text;
 
                 SplitExcel split = new SplitExcel(orgFilePath, tchFilePath, 
@@ -180,28 +172,13 @@ namespace EveryTeacher
         public string checkAnyError()
         {
             string result = "";
-            string formatRet = "";
             string nextLine = "\n";
+            string orgHeadersStr;
+            string[] tchHeaders;
+            string[] mailData = { MAIL_HEADER_TEACHERS, MAIL_HEADER_TCH_EMAIL }; 
 
-            string[] checkOrgHeaders = { HEADER_DEPERTMENT, HEADER_COLLEGE, HEADER_TEACHERS,
-                HEADER_CLASS, HEADER_STUDENT_NUM, HEADER_STUDENT_NAME,
-                HEADER_STUDENT_PHONE, HEADER_RELIEF, HEADER_TCH_EMAIL };
-            int orgIndex = 1;
-
-            string[] checkTchHeaders = { HEADER_CLASS, HEADER_STUDENT_NUM, HEADER_STUDENT_NAME,
-                HEADER_STUDENT_PHONE, HEADER_RELIEF };
+            int orgIndex = 1;            
             int tchIndex = 4;
-
-            string[] checkDepHeaders = { HEADER_TEACHERS,
-                HEADER_CLASS, HEADER_STUDENT_NUM, HEADER_STUDENT_NAME,
-                HEADER_STUDENT_PHONE, HEADER_RELIEF };
-            int depIndex = 4;
-
-            string[] checkColHeaders = { HEADER_DEPERTMENT,
-                HEADER_CLASS, HEADER_STUDENT_NUM, HEADER_STUDENT_NAME,
-                HEADER_STUDENT_PHONE, HEADER_RELIEF };
-            int colIndex = 4;
-
 
 
             //路徑
@@ -213,19 +190,6 @@ namespace EveryTeacher
                     result += ORIGIN_FILE_NAME + "不存在!" + nextLine;
                     setCheckString(ckOrg_txt, false);
                 }
-                //格式
-                else
-                {
-                    formatRet = isExcelFormat(importOrgPath_txtbx.Text,
-                        checkOrgHeaders, orgIndex);
-                    if (!formatRet.Equals(""))
-                    {
-                        result += ORIGIN_FILE_NAME + "格式錯誤: " + formatRet + nextLine;
-                        setCheckString(ckOrg_txt, false);
-                    }
-                    else
-                        setCheckString(ckOrg_txt, true);
-                }
 
                 ckTch_txt.Visible = true;
                 if (!File.Exists(importTchPath_txtbx.Text))
@@ -233,62 +197,47 @@ namespace EveryTeacher
                     result += TEACHER_FILE_NAME + "不存在!" + nextLine;
                     setCheckString(ckTch_txt, false);
                 }
-                //格式
                 else
+                    setCheckString(ckTch_txt, true);
+                
+
+
+                //格式
+                if (result.Equals(""))       //路徑檢查無誤
                 {
-                    formatRet = isExcelFormat(importTchPath_txtbx.Text,
-                        checkTchHeaders, tchIndex);
-                    if (!formatRet.Equals(""))
+                    orgHeadersStr = readStrExcelCellinRow(importOrgPath_txtbx.Text, orgIndex);
+                    tchHeaders = readStrArrExcelCellinRow(importTchPath_txtbx.Text, tchIndex);
+
+                    foreach(string tchHeader in tchHeaders)
                     {
-                        result += TEACHER_FILE_NAME + "格式錯誤: " + formatRet + nextLine;
-
-                        setCheckString(ckTch_txt, false);
+                        if(!orgHeadersStr.Contains(tchHeader))      //未包含，格式錯誤
+                        {
+                            result += ORIGIN_FILE_NAME + "格式錯誤: 檔案標頭未包含[" + tchHeader + "]" + nextLine;
+                            setCheckString(ckOrg_txt, false);
+                        }
                     }
-                    else
-                        setCheckString(ckTch_txt, true);
-                }
 
-                ckDep_txt.Visible = true;
-                if (!File.Exists(importDepPath_txtbx.Text))
-                {
-                    result += DEPARTMENT_FILE_NAME + "不存在!" + nextLine;
-                    setCheckString(ckDep_txt, false);
-                }
-                //格式
-                else
-                {
-                    formatRet = isExcelFormat(importDepPath_txtbx.Text,
-                        checkDepHeaders, depIndex);
-                    if (!formatRet.Equals(""))
+                    if (!orgHeadersStr.Contains(header_combox.SelectedItem.ToString()))      //未包含，格式錯誤
                     {
-                        result += DEPARTMENT_FILE_NAME + "格式錯誤: " + formatRet + nextLine;
-
-                        setCheckString(ckDep_txt, false);
-
+                        result += ORIGIN_FILE_NAME + "格式錯誤: 檔案標頭未包含[" + header_combox.SelectedItem.ToString() + "]" + nextLine;
+                        setCheckString(ckOrg_txt, false);
                     }
-                    else
-                        setCheckString(ckDep_txt, true);
-                }
 
-                ckCol_txt.Visible = true;
-                if (!File.Exists(importColPath_txtbx.Text))
-                {
-                    result += COLLEGE_FILE_NAME + "不存在!" + nextLine;
-                    setCheckString(ckCol_txt, false);
-                }
-                //格式
-                else
-                {
-                    formatRet = isExcelFormat(importColPath_txtbx.Text,
-                        checkColHeaders, colIndex);
-                    if (!formatRet.Equals(""))
-                    { 
-                        result += COLLEGE_FILE_NAME + "格式錯誤: " + formatRet + nextLine;
-
-                        setCheckString(ckCol_txt, false);
+                    foreach (string data in mailData)
+                    {
+                        if (!orgHeadersStr.Contains(data))      //未包含，格式錯誤
+                        {
+                            result += ORIGIN_FILE_NAME + "格式錯誤: 檔案標頭未包含[" + data + "]" + nextLine;
+                            setCheckString(ckOrg_txt, false);
+                        }
                     }
-                    else
-                        setCheckString(ckCol_txt, true);
+                    
+                    System.Diagnostics.Debug.WriteLine(result.Equals(""));
+                    if (result.Equals(""))
+                    {
+                        System.Diagnostics.Debug.WriteLine("result:"+result);
+                        setCheckString(ckOrg_txt, true);
+                    }
                 }
 
                 if (result.Equals("") && !Directory.Exists(exportPath_txtbx.Text))
@@ -300,7 +249,6 @@ namespace EveryTeacher
             {
                 result += "檢查路徑錯誤: "+ fileEx.Message + nextLine;
             }
-            
             return result;
         }
 
@@ -409,6 +357,7 @@ namespace EveryTeacher
                 return false;
             }
         }*/
+        
 
         static string isExcelFormat(string path, string[] checkHeaders, int rowIndex)
         {

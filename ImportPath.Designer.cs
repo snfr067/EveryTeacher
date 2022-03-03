@@ -36,21 +36,15 @@
             this.importTchPath_txtbx = new System.Windows.Forms.TextBox();
             this.importTchPath_btn = new System.Windows.Forms.Button();
             this.next_btn = new System.Windows.Forms.Button();
-            this.hint_txt = new System.Windows.Forms.Label();
-            this.importDepPath_btn = new System.Windows.Forms.Button();
-            this.importDepPath_txtbx = new System.Windows.Forms.TextBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.importColPath_btn = new System.Windows.Forms.Button();
-            this.importColPath_txtbx = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.exportPath_txtbx = new System.Windows.Forms.TextBox();
             this.exportPath_btn = new System.Windows.Forms.Button();
             this.ckOrg_txt = new System.Windows.Forms.Label();
             this.ckTch_txt = new System.Windows.Forms.Label();
-            this.ckDep_txt = new System.Windows.Forms.Label();
-            this.ckCol_txt = new System.Windows.Forms.Label();
             this.version_txt = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.header_combox = new System.Windows.Forms.ComboBox();
+            this.need_mail_cbx = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // importOrgPath_btn
@@ -94,45 +88,6 @@
             this.next_btn.UseVisualStyleBackColor = true;
             this.next_btn.Click += new System.EventHandler(this.next_btn_Click);
             // 
-            // hint_txt
-            // 
-            resources.ApplyResources(this.hint_txt, "hint_txt");
-            this.hint_txt.Name = "hint_txt";
-            // 
-            // importDepPath_btn
-            // 
-            resources.ApplyResources(this.importDepPath_btn, "importDepPath_btn");
-            this.importDepPath_btn.Name = "importDepPath_btn";
-            this.importDepPath_btn.UseVisualStyleBackColor = true;
-            this.importDepPath_btn.Click += new System.EventHandler(this.importDepPath_btn_Click);
-            // 
-            // importDepPath_txtbx
-            // 
-            resources.ApplyResources(this.importDepPath_txtbx, "importDepPath_txtbx");
-            this.importDepPath_txtbx.Name = "importDepPath_txtbx";
-            // 
-            // label2
-            // 
-            resources.ApplyResources(this.label2, "label2");
-            this.label2.Name = "label2";
-            // 
-            // importColPath_btn
-            // 
-            resources.ApplyResources(this.importColPath_btn, "importColPath_btn");
-            this.importColPath_btn.Name = "importColPath_btn";
-            this.importColPath_btn.UseVisualStyleBackColor = true;
-            this.importColPath_btn.Click += new System.EventHandler(this.importColPath_btn_Click);
-            // 
-            // importColPath_txtbx
-            // 
-            resources.ApplyResources(this.importColPath_txtbx, "importColPath_txtbx");
-            this.importColPath_txtbx.Name = "importColPath_txtbx";
-            // 
-            // label3
-            // 
-            resources.ApplyResources(this.label3, "label3");
-            this.label3.Name = "label3";
-            // 
             // label4
             // 
             resources.ApplyResources(this.label4, "label4");
@@ -162,42 +117,41 @@
             this.ckTch_txt.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
             this.ckTch_txt.Name = "ckTch_txt";
             // 
-            // ckDep_txt
-            // 
-            resources.ApplyResources(this.ckDep_txt, "ckDep_txt");
-            this.ckDep_txt.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
-            this.ckDep_txt.Name = "ckDep_txt";
-            // 
-            // ckCol_txt
-            // 
-            resources.ApplyResources(this.ckCol_txt, "ckCol_txt");
-            this.ckCol_txt.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
-            this.ckCol_txt.Name = "ckCol_txt";
-            // 
             // version_txt
             // 
             resources.ApplyResources(this.version_txt, "version_txt");
             this.version_txt.Name = "version_txt";
             // 
+            // label2
+            // 
+            resources.ApplyResources(this.label2, "label2");
+            this.label2.Name = "label2";
+            // 
+            // header_combox
+            // 
+            resources.ApplyResources(this.header_combox, "header_combox");
+            this.header_combox.FormattingEnabled = true;
+            this.header_combox.Name = "header_combox";
+            // 
+            // need_mail_cbx
+            // 
+            resources.ApplyResources(this.need_mail_cbx, "need_mail_cbx");
+            this.need_mail_cbx.Name = "need_mail_cbx";
+            this.need_mail_cbx.UseVisualStyleBackColor = true;
+            // 
             // ImportPath
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.need_mail_cbx);
+            this.Controls.Add(this.header_combox);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.version_txt);
-            this.Controls.Add(this.ckCol_txt);
-            this.Controls.Add(this.ckDep_txt);
             this.Controls.Add(this.ckTch_txt);
             this.Controls.Add(this.ckOrg_txt);
             this.Controls.Add(this.exportPath_btn);
-            this.Controls.Add(this.importColPath_btn);
             this.Controls.Add(this.exportPath_txtbx);
-            this.Controls.Add(this.importColPath_txtbx);
             this.Controls.Add(this.label4);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.importDepPath_btn);
-            this.Controls.Add(this.importDepPath_txtbx);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.hint_txt);
             this.Controls.Add(this.next_btn);
             this.Controls.Add(this.importTchPath_btn);
             this.Controls.Add(this.importTchPath_txtbx);
@@ -221,21 +175,15 @@
         private System.Windows.Forms.TextBox importTchPath_txtbx;
         private System.Windows.Forms.Button importTchPath_btn;
         private System.Windows.Forms.Button next_btn;
-        private System.Windows.Forms.Label hint_txt;
-        private System.Windows.Forms.Button importDepPath_btn;
-        private System.Windows.Forms.TextBox importDepPath_txtbx;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Button importColPath_btn;
-        private System.Windows.Forms.TextBox importColPath_txtbx;
-        private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox exportPath_txtbx;
         private System.Windows.Forms.Button exportPath_btn;
         private System.Windows.Forms.Label ckOrg_txt;
         private System.Windows.Forms.Label ckTch_txt;
-        private System.Windows.Forms.Label ckDep_txt;
-        private System.Windows.Forms.Label ckCol_txt;
         private System.Windows.Forms.Label version_txt;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.ComboBox header_combox;
+        private System.Windows.Forms.CheckBox need_mail_cbx;
     }
 }
 

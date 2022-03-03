@@ -41,3 +41,4 @@ D:\Gitlab\VisualC#Project\EveryTeacher\bin\Debug\System.Security.Cryptography.Pr
 D:\Gitlab\VisualC#Project\EveryTeacher\bin\Debug\System.Security.Cryptography.X509Certificates.dll
 D:\Gitlab\VisualC#Project\EveryTeacher\bin\Debug\System.Xml.ReaderWriter.dll
 D:\Gitlab\VisualC#Project\EveryTeacher\bin\Debug\System.Diagnostics.DiagnosticSource.xml
+D:\Gitlab\VisualC#Project\EveryTeacher\obj\Debug\EveryTeacher.SendMailDataSelect.resources
