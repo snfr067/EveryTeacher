@@ -25,7 +25,7 @@ namespace EveryTeacher
 {
     internal static class Program
     {
-        public static string APP_VERSION = "v.22.02.25.02";
+        public static string APP_VERSION = "Master.22.03.05.02";
 
         public static string HEADER_DEPERTMENT = "系所";
         public static string HEADER_COLLEGE = "學院";
@@ -320,7 +320,7 @@ namespace EveryTeacher
                 nameof(SendMail.Title) + "," +
                 nameof(SendMail.Subject) + "\n";
 
-            /*foreach (SendMail sendMail in smobjs)
+            foreach (SendMail sendMail in smobjs)
             {
                 if (sendMail != null)
                 {
@@ -333,9 +333,9 @@ namespace EveryTeacher
                 }
                 else
                     break;
-            }*/
+            }
 
-            using (var writer = new StreamWriter(file, false, Encoding.Default))
+            /*using (var writer = new StreamWriter(file, false, Encoding.Default))
             {
                 using (var csv = new CsvWriter(writer, CultureInfo.InvariantCulture))
                 {
@@ -358,14 +358,14 @@ namespace EveryTeacher
                             break;
                     }
                 }
-            }
+            }*/
 
-            /*try
+            try
             {
 
                 //string txtFile = file.Substring(0, file.LastIndexOf(".")) + ".txt";
                 //StreamWriter sw = new StreamWriter(txtFile, false, System.Text.Encoding.Unicode);
-                StreamWriter sw = new StreamWriter(file, false, Encoding.UTF8);
+                StreamWriter sw = new StreamWriter(file, false, Encoding.UTF8);     //以後都用UTF8
                 sw.Write(csvData);
                 sw.Close();
 
@@ -374,7 +374,7 @@ namespace EveryTeacher
             catch (Exception ex)
             {
                 MessageBox.Show("CSV檔案錯誤: "+ex.Message);
-            }*/
+            }
         }
 
         // release excel resource
