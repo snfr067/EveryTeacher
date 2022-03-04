@@ -18,6 +18,8 @@ using System.Text;
 using System.Reflection;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
+using CsvHelper;
+using System.Globalization;
 
 namespace EveryTeacher
 {
@@ -154,152 +156,6 @@ namespace EveryTeacher
             }
 
             return "";
-        }
-
-        public static void writeTchExcel(string importPath, string exportPath, string tchFile, 
-            ProgressBar bar, Label prgText)
-        {
-            string val = "";
-            string dstFile = "";
-
-            Excel.Application App = new Excel.Application();
-
-            //取得欲寫入的檔案路徑
-            Excel.Workbook Wbook = App.Workbooks.Open(tchFile, 0, true, 5, "", "", true,
-                 Microsoft.Office.Interop.Excel.XlPlatform.xlWindows
-                  , "\t", false, false, 0, true, 1, 0);
-
-            //將欲修改的檔案屬性設為非唯讀(Normal)，若寫入檔案為唯讀，則會無法寫入
-            System.IO.FileInfo xlsAttribute = new FileInfo(tchFile);
-            xlsAttribute.Attributes = FileAttributes.Normal;
-
-            //取得batchItem的工作表
-            Excel.Worksheet Wsheet = (Excel.Worksheet)Wbook.Sheets[1];
-            Excel.Range rng;// = Wsheet.Rows[5];
-            Excel.Range cellClass;
-            Excel.Range cellStNum;
-            Excel.Range cellStName;
-            Excel.Range cellStPhone;
-            Excel.Range cellRelief;
-            int tchWriteIndex = 5;
-            int tchDataRowIndex = tchWriteIndex;
-            string teacherName = "";
-            
-
-            /*for(int i = 5; i < 300; i++)
-            {
-                for(int j = 5; j < 300; j++)
-                {
-                    Wsheet.Cells[i, j].Value = "";
-                }
-            }*/
-
-            DataSet ds = ExcelToDataSet(importPath, true);
-            if (ds != null)
-            {
-                DataTable dt = ds.Tables[0];
-                DataRowCollection readRows = dt.Rows.Copy();
-
-                bar.Minimum = 0;
-                bar.Maximum = dt.Rows.Count;
-
-                prgText.Text = bar.Value + "/"+ bar.Maximum;
-
-                while (dt.Rows.Count > 0)
-                {
-                    teacherName = dt.Rows[0][HEADER_TEACHERS].ToString();
-                    foreach (DataRow dataRow in readRows) 
-                    {
-                        bool isNull = (dataRow == null);
-                        if (dataRow != null)
-                        {
-                            if (teacherName.Equals(dataRow[HEADER_TEACHERS].ToString()))        //過濾老師
-                            {
-                                val += dataRow[HEADER_CLASS].ToString();
-                                rng = Wsheet.Rows[tchDataRowIndex];
-
-                                cellClass = Wsheet.Cells[tchDataRowIndex, INDEX_TCH_CLASS];
-                                cellStNum = Wsheet.Cells[tchDataRowIndex, INDEX_TCH_STUDENT_NUM];
-                                cellStName = Wsheet.Cells[tchDataRowIndex, INDEX_TCH_STUDENT_NAME];
-                                cellStPhone = Wsheet.Cells[tchDataRowIndex, INDEX_TCH_STUDENT_PHONE];
-                                cellRelief = Wsheet.Cells[tchDataRowIndex, INDEX_TCH_RELIEF];
-
-                                cellClass.Value2 = dataRow[HEADER_CLASS].ToString();
-                                cellStNum.Value2 = dataRow[HEADER_STUDENT_NUM].ToString();
-                                cellStName.Value2 = dataRow[HEADER_STUDENT_NAME].ToString();
-                                cellStPhone.NumberFormat = "@";
-                                if (dataRow[HEADER_STUDENT_PHONE].ToString().Length == 9
-                                    && dataRow[HEADER_STUDENT_PHONE].ToString().StartsWith("9"))
-                                    cellStPhone.Value = "0" + dataRow[HEADER_STUDENT_PHONE].ToString();
-                                else
-                                    cellStPhone.Value = dataRow[HEADER_STUDENT_PHONE].ToString();
-
-                                cellRelief.Value2 = dataRow[HEADER_RELIEF].ToString();
-
-
-                                System.Diagnostics.Debug.WriteLine("write:"+dataRow[HEADER_STUDENT_NAME].ToString());
-
-                                if (dstFile.Equals(""))
-                                {
-                                    dstFile = exportPath + dataRow[HEADER_CLASS].ToString() + ".xlsx";
-
-                                    if (!File.Exists(dstFile))
-                                        File.Copy(tchFile, dstFile);
-
-                                }
-
-                                dt.Rows.RemoveAt(0);    //由於刪掉，所以下一個要被刪的，會變第0個
-
-                                tchDataRowIndex++;
-                            }
-                        }
-                        else
-                            break;
-                    }
-
-                    //設置禁止彈出保存和覆蓋的詢問提示框
-                    Wsheet.Application.DisplayAlerts = false;
-                    Wsheet.Application.AlertBeforeOverwriting = false;
-
-                    //保存工作表，因為禁止彈出儲存提示框，所以需在此儲存，否則寫入的資料會無法儲存
-                    Wbook.SaveCopyAs(dstFile);
-
-                    tchDataRowIndex = tchWriteIndex;
-                    dstFile = "";
-
-                    Wbook = App.Workbooks.Open(tchFile, 0, true, 5, "", "", true,
-                     Microsoft.Office.Interop.Excel.XlPlatform.xlWindows
-                      , "\t", false, false, 0, true, 1, 0);                    
-                    xlsAttribute.Attributes = FileAttributes.Normal;
-                    Wsheet = (Excel.Worksheet)Wbook.Sheets[1];
-
-                    if (readRows.Count == dt.Rows.Count)
-                    {
-                        MessageBox.Show("原始資料有異常!");
-                        break;
-                    }
-                    else
-                    {
-                        bar.Step = readRows.Count - dt.Rows.Count;
-                        bar.PerformStep();
-
-                        prgText.Text = bar.Value + "/" + bar.Maximum;
-
-                        readRows = dt.Rows.Copy();
-                    }
-
-
-                    System.Diagnostics.Debug.WriteLine("------------");
-                }
-            }
-            
-            //關閉EXCEL
-            Wbook.Close();
-
-            //離開應用程式
-            App.Quit();
-
-            KillExcelApp(App);
         }
 
         static void writeToExcel(string path, int indexOfSheet)
@@ -464,7 +320,7 @@ namespace EveryTeacher
                 nameof(SendMail.Title) + "," +
                 nameof(SendMail.Subject) + "\n";
 
-            foreach (SendMail sendMail in smobjs)
+            /*foreach (SendMail sendMail in smobjs)
             {
                 if (sendMail != null)
                 {
@@ -477,18 +333,48 @@ namespace EveryTeacher
                 }
                 else
                     break;
+            }*/
+
+            using (var writer = new StreamWriter(file, false, Encoding.Default))
+            {
+                using (var csv = new CsvWriter(writer, CultureInfo.InvariantCulture))
+                {
+                    csv.WriteHeader<SendMail>();
+                    csv.NextRecord();
+
+                    foreach (SendMail sendMail in smobjs)
+                    {
+                        if (sendMail != null)
+                        {
+                            csv.WriteField(sendMail.SendName);
+                            csv.WriteField(sendMail.Sendto);
+                            csv.WriteField(sendMail.CC);
+                            csv.WriteField(sendMail.Attach);
+                            csv.WriteField(sendMail.Title);
+                            csv.WriteField(sendMail.Subject);
+                            csv.NextRecord();
+                        }
+                        else
+                            break;
+                    }
+                }
             }
 
-            try
+            /*try
             {
+
+                //string txtFile = file.Substring(0, file.LastIndexOf(".")) + ".txt";
+                //StreamWriter sw = new StreamWriter(txtFile, false, System.Text.Encoding.Unicode);
                 StreamWriter sw = new StreamWriter(file, false, Encoding.UTF8);
                 sw.Write(csvData);
                 sw.Close();
+
+                //File.Move(txtFile, file);
             }
             catch (Exception ex)
             {
                 MessageBox.Show("CSV檔案錯誤: "+ex.Message);
-            }
+            }*/
         }
 
         // release excel resource

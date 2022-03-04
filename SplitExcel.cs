@@ -11,6 +11,7 @@ using System.Windows.Forms;
 using Excel = Microsoft.Office.Interop.Excel;
 using static EveryTeacher.Program;
 using System.Threading;
+using CsvHelper;
 
 namespace EveryTeacher
 {
@@ -141,7 +142,7 @@ namespace EveryTeacher
                         + "老師.pdf";
 
                     dstFile = exportPath + DIR_NAME_TEACHERS
-                        + dt.Rows[0][Program.HEADER_TEACHERS].ToString() + ".xlsx";
+                        + dt.Rows[0][Program.HEADER_TEACHERS].ToString() + "老師.xlsx";
 
                     if (!File.Exists(dstFile))
                         File.Copy(tchFile, dstFile);
