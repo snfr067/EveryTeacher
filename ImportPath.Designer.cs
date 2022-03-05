@@ -45,6 +45,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.header_combox = new System.Windows.Forms.ComboBox();
             this.need_mail_cbx = new System.Windows.Forms.CheckBox();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.SuspendLayout();
             // 
             // importOrgPath_btn
@@ -139,6 +140,12 @@
             this.need_mail_cbx.Name = "need_mail_cbx";
             this.need_mail_cbx.UseVisualStyleBackColor = true;
             // 
+            // groupBox1
+            // 
+            resources.ApplyResources(this.groupBox1, "groupBox1");
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.TabStop = false;
+            // 
             // ImportPath
             // 
             resources.ApplyResources(this, "$this");
@@ -159,6 +166,7 @@
             this.Controls.Add(this.importOrgPath_txtbx);
             this.Controls.Add(this.text);
             this.Controls.Add(this.importOrgPath_btn);
+            this.Controls.Add(this.groupBox1);
             this.Name = "ImportPath";
             this.Load += new System.EventHandler(this.ImportPath_Load);
             this.ResumeLayout(false);
@@ -184,6 +192,7 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ComboBox header_combox;
         private System.Windows.Forms.CheckBox need_mail_cbx;
+        private System.Windows.Forms.GroupBox groupBox1;
     }
 }
 
