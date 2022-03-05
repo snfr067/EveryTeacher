@@ -1,4 +1,5 @@
-
+bin/*
+obj/*
 *.xlsx
 *.csv
 bin/Debug/BouncyCastle.Crypto.dll
