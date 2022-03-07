@@ -39,6 +39,7 @@ namespace EveryTeacher
         string depFilePath = "";
         string colFilePath = "";
         string exportPath = "";
+        
 
         public ImportPath()
         {
@@ -58,7 +59,7 @@ namespace EveryTeacher
             exportPath_txtbx.Text =
                 System.Windows.Forms.Application.StartupPath + "\\" + EXPORT_PATH_NAME + "\\";
 
-            reloadHeaders();
+            //reloadHeaders();
         }
 
         private void initUI()
@@ -71,24 +72,43 @@ namespace EveryTeacher
 
             ckOrg_txt.Visible = false;
             ckTch_txt.Visible = false;
+            
         }
+        
 
-        private void reloadHeaders()
+        private void reloadSendMailData()
         {
-            header_combox.Items.Clear();
-            headers = readStrArrExcelCellinRow(importOrgPath_txtbx.Text, ORIGIN_HEADER_ROW);
-            foreach (string header in headers)
+            sendTo_combox.Items.Clear();
+            sendTo_combox.Text = "讀取中...";
+            sendTo_combox.Enabled = false;
+
+            sendMail_combox.Items.Clear();
+            sendMail_combox.Text = "讀取中...";
+            sendMail_combox.Enabled = false;
+
+            if (headers.Length != 0)
             {
-                header_combox.Items.Add(header);
+                foreach (string header in headers)
+                {
+                    sendTo_combox.Items.Add(header);
+                    sendMail_combox.Items.Add(header);
+                }
+                sendTo_combox.SelectedIndex = 0;
+                sendMail_combox.SelectedIndex = 0;
             }
-            header_combox.SelectedIndex = 0;
+            else
+            {
+                sendTo_combox.Text = "";
+                sendMail_combox.Text = "";
+            }
+            
+            sendTo_combox.Enabled = true;
+            sendMail_combox.Enabled = true;
         }
 
 
         private void ImportPathClosed(object sender, FormClosedEventArgs e)
         {
-            //Program.KillExcelApp();
-
             Application.Exit(); //這樣程式才會完全關閉並釋放資源
         }
 
@@ -99,7 +119,6 @@ namespace EveryTeacher
             if (!fileName.Equals(""))
             {
                 importOrgPath_txtbx.Text = fileName;
-                reloadHeaders();
             }
         }
         
@@ -289,74 +308,6 @@ namespace EveryTeacher
             else
                 return "";
         }
-
-        /*public static bool DataTableToExcel(DataSet dataSet, string Outpath)
-        {
-            bool result = false;
-            try
-            {
-                if (dataSet == null || dataSet.Tables == null || dataSet.Tables.Count == 0 || string.IsNullOrEmpty(Outpath))
-                    throw new Exception("輸入的DataSet或路徑例外");
-                int sheetIndex = 0;
-                //根據輸出路徑的擴展名判斷workbook的實體型別
-                IWorkbook workbook = null;
-                string pathExtensionName = Outpath.Trim().Substring(Outpath.Length - 5);
-                if (pathExtensionName.Contains(".xlsx"))
-                {
-                    workbook = new XSSFWorkbook();
-                }
-                else if (pathExtensionName.Contains(".xls"))
-                {
-                    workbook = new HSSFWorkbook();
-                }
-                else
-                {
-                    Outpath = Outpath.Trim() + ".xls";
-                    workbook = new HSSFWorkbook();
-                }
-                //將DataSet匯出為Excel
-                foreach (DataTable dt in dataSet.Tables)
-                {
-                    sheetIndex++;
-                    if (dt != null && dt.Rows.Count > 0)
-                    {
-                        ISheet sheet = workbook.CreateSheet(string.IsNullOrEmpty(dt.TableName) ? ("sheet" + sheetIndex) : dt.TableName);//創建一個名稱為Sheet0的表
-                        int rowCount = dt.Rows.Count;//行數
-                        int columnCount = dt.Columns.Count;//列數
-
-                        //設定列頭
-                        IRow row = sheet.CreateRow(0);//excel第一行設為列頭
-                        for (int c = 0; c < columnCount; c++)
-                        {
-                            ICell cell = row.CreateCell(c);
-                            cell.SetCellValue(dt.Columns[c].ColumnName);
-                        }
-
-                        //設定每行每列的單元格,
-                        for (int i = 0; i < rowCount; i++)
-                        {
-                            row = sheet.CreateRow(i + 1);
-                            for (int j = 0; j < columnCount; j++)
-                            {
-                                ICell cell = row.CreateCell(j);//excel第二行開始寫入資料
-                                cell.SetCellValue(dt.Rows[i][j].ToString());
-                            }
-                        }
-                    }
-                }
-                //向outPath輸出資料
-                using (FileStream fs = File.OpenWrite(Outpath))
-                {
-                    workbook.Write(fs);//向打開的這個xls檔案中寫入資料
-                    result = true;
-                }
-                return result;
-            }
-            catch (Exception ex)
-            {
-                return false;
-            }
-        }*/
         
 
         static string isExcelFormat(string path, string[] checkHeaders, int rowIndex)
@@ -475,6 +426,74 @@ namespace EveryTeacher
             KillExcelApp(App);
         }
 
+        private void ImportPathTextChanged(object sender, EventArgs e)
+        {
+            header_combox.Items.Clear();
+            sendTo_combox.Items.Clear();
+            sendMail_combox.Items.Clear();
+
+            header_combox.Text = "讀取中...";
+            header_combox.Enabled = false;
+            if (need_mail_cbx.Checked)
+            {
+                sendTo_combox.Text = "讀取中...";
+                sendTo_combox.Enabled = false;
+                sendMail_combox.Text = "讀取中...";
+                sendMail_combox.Enabled = false;
+            }
+
+            if (File.Exists(importOrgPath_txtbx.Text))
+            {
+                headers = readStrArrExcelCellinRow(importOrgPath_txtbx.Text, ORIGIN_HEADER_ROW);
+
+                foreach (string header in headers)
+                {
+                    header_combox.Items.Add(header);
+                }
+                header_combox.SelectedIndex = 0;
+
+                if (need_mail_cbx.Checked)
+                {
+                    foreach (string header in headers)
+                    {
+                        sendTo_combox.Items.Add(header);
+                        sendMail_combox.Items.Add(header);
+                    }
+                    sendTo_combox.SelectedIndex = 0;
+                    sendMail_combox.SelectedIndex = 0;
+                }
+
+            }
+            else
+            {
+                header_combox.Text = "";
+                sendTo_combox.Text = "";
+                sendMail_combox.Text = "";
+            }
+
+            header_combox.Enabled = true;
+            if (need_mail_cbx.Checked)
+            {
+                sendTo_combox.Enabled = true;
+                sendMail_combox.Enabled = true;
+            }
+        }
+
+        private void needMailChanged(object sender, EventArgs e)
+        {
+            if(need_mail_cbx.Checked)
+            {
+                reloadSendMailData();
+            }
+            else
+            {
+                sendTo_combox.Text = "";
+                sendMail_combox.Text = "";
+
+                sendTo_combox.Enabled = false;
+                sendMail_combox.Enabled = false;
+            }
+        }
     }
     
 }

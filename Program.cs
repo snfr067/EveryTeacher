@@ -23,7 +23,7 @@ namespace EveryTeacher
 {
     internal static class Program
     {
-        public static string APP_VERSION = "v.22.03.03.01";
+        public static string APP_VERSION = "HeadersRead.22.03.07.01";
 
         public static string HEADER_DEPERTMENT = "系所";
         public static string HEADER_COLLEGE = "學院";

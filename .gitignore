@@ -69,3 +69,5 @@ obj/Release/EveryTeacher.SplitExcel.resources
 obj/Release/TempPE/Properties.Resources.Designer.cs.dll
 .vs
 /*.config
+Properties
+/*.csproj

@@ -32,7 +32,7 @@
             this.importOrgPath_btn = new System.Windows.Forms.Button();
             this.text = new System.Windows.Forms.Label();
             this.importOrgPath_txtbx = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
             this.importTchPath_txtbx = new System.Windows.Forms.TextBox();
             this.importTchPath_btn = new System.Windows.Forms.Button();
             this.next_btn = new System.Windows.Forms.Button();
@@ -45,7 +45,14 @@
             this.label2 = new System.Windows.Forms.Label();
             this.header_combox = new System.Windows.Forms.ComboBox();
             this.need_mail_cbx = new System.Windows.Forms.CheckBox();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.sendMail_combox = new System.Windows.Forms.ComboBox();
+            this.sendTo_combox = new System.Windows.Forms.ComboBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // importOrgPath_btn
@@ -64,11 +71,12 @@
             // 
             resources.ApplyResources(this.importOrgPath_txtbx, "importOrgPath_txtbx");
             this.importOrgPath_txtbx.Name = "importOrgPath_txtbx";
+            this.importOrgPath_txtbx.TextChanged += new System.EventHandler(this.ImportPathTextChanged);
             // 
-            // label1
+            // label10
             // 
-            resources.ApplyResources(this.label1, "label1");
-            this.label1.Name = "label1";
+            resources.ApplyResources(this.label10, "label10");
+            this.label10.Name = "label10";
             // 
             // importTchPath_txtbx
             // 
@@ -139,17 +147,64 @@
             resources.ApplyResources(this.need_mail_cbx, "need_mail_cbx");
             this.need_mail_cbx.Name = "need_mail_cbx";
             this.need_mail_cbx.UseVisualStyleBackColor = true;
+            this.need_mail_cbx.CheckedChanged += new System.EventHandler(this.needMailChanged);
             // 
-            // groupBox1
+            // label3
             // 
-            resources.ApplyResources(this.groupBox1, "groupBox1");
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.TabStop = false;
+            this.label3.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            resources.ApplyResources(this.label3, "label3");
+            this.label3.Name = "label3";
+            // 
+            // label5
+            // 
+            resources.ApplyResources(this.label5, "label5");
+            this.label5.Name = "label5";
+            // 
+            // label1
+            // 
+            resources.ApplyResources(this.label1, "label1");
+            this.label1.Name = "label1";
+            // 
+            // label6
+            // 
+            this.label6.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            resources.ApplyResources(this.label6, "label6");
+            this.label6.Name = "label6";
+            // 
+            // sendMail_combox
+            // 
+            resources.ApplyResources(this.sendMail_combox, "sendMail_combox");
+            this.sendMail_combox.FormattingEnabled = true;
+            this.sendMail_combox.Name = "sendMail_combox";
+            // 
+            // sendTo_combox
+            // 
+            resources.ApplyResources(this.sendTo_combox, "sendTo_combox");
+            this.sendTo_combox.FormattingEnabled = true;
+            this.sendTo_combox.Name = "sendTo_combox";
+            // 
+            // label7
+            // 
+            resources.ApplyResources(this.label7, "label7");
+            this.label7.Name = "label7";
+            // 
+            // label8
+            // 
+            resources.ApplyResources(this.label8, "label8");
+            this.label8.Name = "label8";
             // 
             // ImportPath
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.sendMail_combox);
+            this.Controls.Add(this.sendTo_combox);
+            this.Controls.Add(this.label7);
+            this.Controls.Add(this.label8);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.label6);
+            this.Controls.Add(this.label5);
+            this.Controls.Add(this.label3);
             this.Controls.Add(this.need_mail_cbx);
             this.Controls.Add(this.header_combox);
             this.Controls.Add(this.label2);
@@ -162,11 +217,10 @@
             this.Controls.Add(this.next_btn);
             this.Controls.Add(this.importTchPath_btn);
             this.Controls.Add(this.importTchPath_txtbx);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.label10);
             this.Controls.Add(this.importOrgPath_txtbx);
             this.Controls.Add(this.text);
             this.Controls.Add(this.importOrgPath_btn);
-            this.Controls.Add(this.groupBox1);
             this.Name = "ImportPath";
             this.Load += new System.EventHandler(this.ImportPath_Load);
             this.ResumeLayout(false);
@@ -179,7 +233,7 @@
         private System.Windows.Forms.Button importOrgPath_btn;
         private System.Windows.Forms.Label text;
         private System.Windows.Forms.TextBox importOrgPath_txtbx;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label10;
         private System.Windows.Forms.TextBox importTchPath_txtbx;
         private System.Windows.Forms.Button importTchPath_btn;
         private System.Windows.Forms.Button next_btn;
@@ -192,7 +246,14 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ComboBox header_combox;
         private System.Windows.Forms.CheckBox need_mail_cbx;
-        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.ComboBox sendMail_combox;
+        private System.Windows.Forms.ComboBox sendTo_combox;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label label8;
     }
 }
 
