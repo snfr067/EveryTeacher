@@ -98,3 +98,5 @@ obj/Release/EveryTeacher.pdb
 obj/Release/EveryTeacher.Properties.Resources.resources
 obj/Release/EveryTeacher.SplitExcel.resources
 obj/Release/TempPE/Properties.Resources.Designer.cs.dll
+.vs
+/*.config
