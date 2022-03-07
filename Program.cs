@@ -56,11 +56,7 @@ namespace EveryTeacher
         public static int INDEX_COL_STUDENT_NAME = 4;
         public static int INDEX_COL_STUDENT_PHONE = 5;
         public static int INDEX_COL_RELIEF = 6;
-
-        public static string DIR_NAME_TEACHERS = "寄給導師的\\";
-        public static string DIR_NAME_DEPARTMENT = "寄給系主任的\\";
-        public static string DIR_NAME_COLLEGE = "寄給院長的\\";
-
+        
         public static int EXAMPLE_HEADER_ROW = 4;
         public static int ORIGIN_HEADER_ROW = 1;
         public static int FIRST_DATA_ROW = 5;
@@ -336,16 +332,17 @@ namespace EveryTeacher
                 else
                     break;
             }
+            
 
             try
             {
-                StreamWriter sw = new StreamWriter(file, false, Encoding.UTF8);
+                StreamWriter sw = new StreamWriter(file, false, Encoding.Default);     //亂碼的話用UTF8
                 sw.Write(csvData);
                 sw.Close();
             }
             catch (Exception ex)
             {
-                MessageBox.Show("CSV檔案錯誤: "+ex.Message);
+                MessageBox.Show("CSV檔案錯誤: " + ex.Message);
             }
         }
 

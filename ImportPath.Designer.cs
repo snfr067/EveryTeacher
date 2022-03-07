@@ -49,10 +49,12 @@
             this.label5 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
-            this.sendMail_combox = new System.Windows.Forms.ComboBox();
             this.sendTo_combox = new System.Windows.Forms.ComboBox();
+            this.sendName_combox = new System.Windows.Forms.ComboBox();
             this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // importOrgPath_btn
@@ -171,17 +173,17 @@
             resources.ApplyResources(this.label6, "label6");
             this.label6.Name = "label6";
             // 
-            // sendMail_combox
-            // 
-            resources.ApplyResources(this.sendMail_combox, "sendMail_combox");
-            this.sendMail_combox.FormattingEnabled = true;
-            this.sendMail_combox.Name = "sendMail_combox";
-            // 
             // sendTo_combox
             // 
             resources.ApplyResources(this.sendTo_combox, "sendTo_combox");
             this.sendTo_combox.FormattingEnabled = true;
             this.sendTo_combox.Name = "sendTo_combox";
+            // 
+            // sendName_combox
+            // 
+            resources.ApplyResources(this.sendName_combox, "sendName_combox");
+            this.sendName_combox.FormattingEnabled = true;
+            this.sendName_combox.Name = "sendName_combox";
             // 
             // label7
             // 
@@ -193,14 +195,26 @@
             resources.ApplyResources(this.label8, "label8");
             this.label8.Name = "label8";
             // 
+            // label9
+            // 
+            resources.ApplyResources(this.label9, "label9");
+            this.label9.Name = "label9";
+            // 
+            // label11
+            // 
+            resources.ApplyResources(this.label11, "label11");
+            this.label11.Name = "label11";
+            // 
             // ImportPath
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.sendMail_combox);
             this.Controls.Add(this.sendTo_combox);
+            this.Controls.Add(this.sendName_combox);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.label8);
+            this.Controls.Add(this.label11);
+            this.Controls.Add(this.label9);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label5);
@@ -250,10 +264,12 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.ComboBox sendMail_combox;
         private System.Windows.Forms.ComboBox sendTo_combox;
+        private System.Windows.Forms.ComboBox sendName_combox;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label label11;
     }
 }
 

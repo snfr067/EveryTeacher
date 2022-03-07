@@ -72,38 +72,50 @@ namespace EveryTeacher
 
             ckOrg_txt.Visible = false;
             ckTch_txt.Visible = false;
-            
+
+            next_btn.Text = "下一頁";
+            next_btn.Enabled = true;
+
+            header_combox.Enabled = true;
+
+            if(need_mail_cbx.Checked)
+            {
+                sendName_combox.Enabled = true;
+                sendTo_combox.Enabled = true;
+            }
         }
         
 
-        private void reloadSendMailData()
+        private void reloadsendToData()
         {
+            sendName_combox.Items.Clear();
+            sendName_combox.Text = "讀取中...";
+            sendName_combox.Enabled = false;
+
             sendTo_combox.Items.Clear();
             sendTo_combox.Text = "讀取中...";
             sendTo_combox.Enabled = false;
 
-            sendMail_combox.Items.Clear();
-            sendMail_combox.Text = "讀取中...";
-            sendMail_combox.Enabled = false;
-
             if (headers.Length != 0)
             {
+                sendName_combox.Items.Add("");
+                sendTo_combox.Items.Add("");
                 foreach (string header in headers)
                 {
+                    sendName_combox.Items.Add(header);
                     sendTo_combox.Items.Add(header);
-                    sendMail_combox.Items.Add(header);
                 }
+                sendName_combox.SelectedIndex = 0;
                 sendTo_combox.SelectedIndex = 0;
-                sendMail_combox.SelectedIndex = 0;
             }
             else
             {
+                sendName_combox.Text = "";
                 sendTo_combox.Text = "";
-                sendMail_combox.Text = "";
             }
             
+            sendName_combox.Enabled = true;
             sendTo_combox.Enabled = true;
-            sendMail_combox.Enabled = true;
         }
 
 
@@ -151,6 +163,8 @@ namespace EveryTeacher
             next_btn.Enabled = false;
 
             header_combox.Enabled = false;
+            sendName_combox.Enabled = false;
+            sendTo_combox.Enabled = false;
 
             errorResult = checkAnyError();
             if (!errorResult.Equals(""))
@@ -164,8 +178,17 @@ namespace EveryTeacher
                 tchFilePath = importTchPath_txtbx.Text;
                 exportPath = exportPath_txtbx.Text;
 
-                SplitExcel split = new SplitExcel(orgFilePath, tchFilePath, 
-                    depFilePath, colFilePath, exportPath);
+                SplitExcel split;
+
+                if(need_mail_cbx.Checked)
+                {
+                    split = new SplitExcel(orgFilePath, header_combox.Text, tchFilePath, exportPath, 
+                        sendName_combox.Text, sendTo_combox.Text);
+                }
+                else
+                {
+                    split = new SplitExcel(orgFilePath, header_combox.Text, tchFilePath, exportPath);
+                }
                 split.Show();
                 split.Visible = true;
 
@@ -429,17 +452,17 @@ namespace EveryTeacher
         private void ImportPathTextChanged(object sender, EventArgs e)
         {
             header_combox.Items.Clear();
+            sendName_combox.Items.Clear();
             sendTo_combox.Items.Clear();
-            sendMail_combox.Items.Clear();
 
             header_combox.Text = "讀取中...";
             header_combox.Enabled = false;
             if (need_mail_cbx.Checked)
             {
+                sendName_combox.Text = "讀取中...";
+                sendName_combox.Enabled = false;
                 sendTo_combox.Text = "讀取中...";
                 sendTo_combox.Enabled = false;
-                sendMail_combox.Text = "讀取中...";
-                sendMail_combox.Enabled = false;
             }
 
             if (File.Exists(importOrgPath_txtbx.Text))
@@ -454,28 +477,30 @@ namespace EveryTeacher
 
                 if (need_mail_cbx.Checked)
                 {
+                    sendName_combox.Items.Add("");
+                    sendTo_combox.Items.Add("");
                     foreach (string header in headers)
                     {
+                        sendName_combox.Items.Add(header);
                         sendTo_combox.Items.Add(header);
-                        sendMail_combox.Items.Add(header);
                     }
+                    sendName_combox.SelectedIndex = 0;
                     sendTo_combox.SelectedIndex = 0;
-                    sendMail_combox.SelectedIndex = 0;
                 }
 
             }
             else
             {
                 header_combox.Text = "";
+                sendName_combox.Text = "";
                 sendTo_combox.Text = "";
-                sendMail_combox.Text = "";
             }
 
             header_combox.Enabled = true;
             if (need_mail_cbx.Checked)
             {
+                sendName_combox.Enabled = true;
                 sendTo_combox.Enabled = true;
-                sendMail_combox.Enabled = true;
             }
         }
 
@@ -483,15 +508,15 @@ namespace EveryTeacher
         {
             if(need_mail_cbx.Checked)
             {
-                reloadSendMailData();
+                reloadsendToData();
             }
             else
             {
+                sendName_combox.Text = "";
                 sendTo_combox.Text = "";
-                sendMail_combox.Text = "";
 
+                sendName_combox.Enabled = false;
                 sendTo_combox.Enabled = false;
-                sendMail_combox.Enabled = false;
             }
         }
     }

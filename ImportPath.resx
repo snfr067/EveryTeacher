@@ -148,7 +148,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;importOrgPath_btn.ZOrder" xml:space="preserve">
-    <value>23</value>
+    <value>25</value>
   </data>
   <data name="text.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -181,7 +181,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;text.ZOrder" xml:space="preserve">
-    <value>22</value>
+    <value>24</value>
   </data>
   <data name="importOrgPath_txtbx.Font" type="System.Drawing.Font, System.Drawing">
     <value>微軟正黑體, 12pt</value>
@@ -208,7 +208,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;importOrgPath_txtbx.ZOrder" xml:space="preserve">
-    <value>21</value>
+    <value>23</value>
   </data>
   <data name="label10.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -241,7 +241,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;label10.ZOrder" xml:space="preserve">
-    <value>20</value>
+    <value>22</value>
   </data>
   <data name="importTchPath_txtbx.Font" type="System.Drawing.Font, System.Drawing">
     <value>微軟正黑體, 12pt</value>
@@ -268,7 +268,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;importTchPath_txtbx.ZOrder" xml:space="preserve">
-    <value>19</value>
+    <value>21</value>
   </data>
   <data name="importTchPath_btn.Font" type="System.Drawing.Font, System.Drawing">
     <value>微軟正黑體, 12pt</value>
@@ -298,7 +298,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;importTchPath_btn.ZOrder" xml:space="preserve">
-    <value>18</value>
+    <value>20</value>
   </data>
   <data name="next_btn.Font" type="System.Drawing.Font, System.Drawing">
     <value>微軟正黑體, 12pt</value>
@@ -328,7 +328,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;next_btn.ZOrder" xml:space="preserve">
-    <value>17</value>
+    <value>19</value>
   </data>
   <data name="label4.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -361,7 +361,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;label4.ZOrder" xml:space="preserve">
-    <value>16</value>
+    <value>18</value>
   </data>
   <data name="exportPath_txtbx.Font" type="System.Drawing.Font, System.Drawing">
     <value>微軟正黑體, 12pt</value>
@@ -388,7 +388,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;exportPath_txtbx.ZOrder" xml:space="preserve">
-    <value>15</value>
+    <value>17</value>
   </data>
   <data name="exportPath_btn.Font" type="System.Drawing.Font, System.Drawing">
     <value>微軟正黑體, 12pt</value>
@@ -418,7 +418,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;exportPath_btn.ZOrder" xml:space="preserve">
-    <value>14</value>
+    <value>16</value>
   </data>
   <data name="ckOrg_txt.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -448,7 +448,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;ckOrg_txt.ZOrder" xml:space="preserve">
-    <value>13</value>
+    <value>15</value>
   </data>
   <data name="ckTch_txt.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -478,7 +478,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;ckTch_txt.ZOrder" xml:space="preserve">
-    <value>12</value>
+    <value>14</value>
   </data>
   <data name="version_txt.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -505,7 +505,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;version_txt.ZOrder" xml:space="preserve">
-    <value>11</value>
+    <value>13</value>
   </data>
   <data name="label2.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -541,7 +541,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;label2.ZOrder" xml:space="preserve">
-    <value>10</value>
+    <value>12</value>
   </data>
   <data name="header_combox.Font" type="System.Drawing.Font, System.Drawing">
     <value>微軟正黑體, 12pt</value>
@@ -568,7 +568,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;header_combox.ZOrder" xml:space="preserve">
-    <value>9</value>
+    <value>11</value>
   </data>
   <data name="need_mail_cbx.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -598,7 +598,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;need_mail_cbx.ZOrder" xml:space="preserve">
-    <value>8</value>
+    <value>10</value>
   </data>
   <data name="label3.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -625,7 +625,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;label3.ZOrder" xml:space="preserve">
-    <value>7</value>
+    <value>9</value>
   </data>
   <data name="label5.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -655,7 +655,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;label5.ZOrder" xml:space="preserve">
-    <value>6</value>
+    <value>8</value>
   </data>
   <data name="label1.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -688,7 +688,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;label1.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>6</value>
   </data>
   <data name="label6.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -715,37 +715,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;label6.ZOrder" xml:space="preserve">
-    <value>5</value>
-  </data>
-  <data name="sendMail_combox.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="sendMail_combox.Font" type="System.Drawing.Font, System.Drawing">
-    <value>微軟正黑體, 12pt</value>
-  </data>
-  <data name="sendMail_combox.ItemHeight" type="System.Int32, mscorlib">
-    <value>20</value>
-  </data>
-  <data name="sendMail_combox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>143, 507</value>
-  </data>
-  <data name="sendMail_combox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>239, 28</value>
-  </data>
-  <data name="sendMail_combox.TabIndex" type="System.Int32, mscorlib">
-    <value>37</value>
-  </data>
-  <data name="&gt;&gt;sendMail_combox.Name" xml:space="preserve">
-    <value>sendMail_combox</value>
-  </data>
-  <data name="&gt;&gt;sendMail_combox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;sendMail_combox.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;sendMail_combox.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>7</value>
   </data>
   <data name="sendTo_combox.Enabled" type="System.Boolean, mscorlib">
     <value>False</value>
@@ -757,13 +727,13 @@
     <value>20</value>
   </data>
   <data name="sendTo_combox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>143, 457</value>
+    <value>143, 507</value>
   </data>
   <data name="sendTo_combox.Size" type="System.Drawing.Size, System.Drawing">
     <value>239, 28</value>
   </data>
   <data name="sendTo_combox.TabIndex" type="System.Int32, mscorlib">
-    <value>38</value>
+    <value>37</value>
   </data>
   <data name="&gt;&gt;sendTo_combox.Name" xml:space="preserve">
     <value>sendTo_combox</value>
@@ -775,6 +745,36 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;sendTo_combox.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="sendName_combox.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="sendName_combox.Font" type="System.Drawing.Font, System.Drawing">
+    <value>微軟正黑體, 12pt</value>
+  </data>
+  <data name="sendName_combox.ItemHeight" type="System.Int32, mscorlib">
+    <value>20</value>
+  </data>
+  <data name="sendName_combox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>143, 457</value>
+  </data>
+  <data name="sendName_combox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>239, 28</value>
+  </data>
+  <data name="sendName_combox.TabIndex" type="System.Int32, mscorlib">
+    <value>38</value>
+  </data>
+  <data name="&gt;&gt;sendName_combox.Name" xml:space="preserve">
+    <value>sendName_combox</value>
+  </data>
+  <data name="&gt;&gt;sendName_combox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;sendName_combox.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;sendName_combox.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
   <data name="label7.AutoSize" type="System.Boolean, mscorlib">
@@ -848,6 +848,72 @@
   </data>
   <data name="&gt;&gt;label8.ZOrder" xml:space="preserve">
     <value>3</value>
+  </data>
+  <data name="label9.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label9.Font" type="System.Drawing.Font, System.Drawing">
+    <value>微軟正黑體, 9pt</value>
+  </data>
+  <data name="label9.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="label9.Location" type="System.Drawing.Point, System.Drawing">
+    <value>388, 464</value>
+  </data>
+  <data name="label9.Size" type="System.Drawing.Size, System.Drawing">
+    <value>184, 16</value>
+  </data>
+  <data name="label9.TabIndex" type="System.Int32, mscorlib">
+    <value>34</value>
+  </data>
+  <data name="label9.Text" xml:space="preserve">
+    <value>(若還不需要填寫，可先設為空白)</value>
+  </data>
+  <data name="&gt;&gt;label9.Name" xml:space="preserve">
+    <value>label9</value>
+  </data>
+  <data name="&gt;&gt;label9.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label9.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;label9.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="label11.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label11.Font" type="System.Drawing.Font, System.Drawing">
+    <value>微軟正黑體, 9pt</value>
+  </data>
+  <data name="label11.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="label11.Location" type="System.Drawing.Point, System.Drawing">
+    <value>388, 514</value>
+  </data>
+  <data name="label11.Size" type="System.Drawing.Size, System.Drawing">
+    <value>184, 16</value>
+  </data>
+  <data name="label11.TabIndex" type="System.Int32, mscorlib">
+    <value>34</value>
+  </data>
+  <data name="label11.Text" xml:space="preserve">
+    <value>(若還不需要填寫，可先設為空白)</value>
+  </data>
+  <data name="&gt;&gt;label11.Name" xml:space="preserve">
+    <value>label11</value>
+  </data>
+  <data name="&gt;&gt;label11.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label11.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;label11.ZOrder" xml:space="preserve">
+    <value>4</value>
   </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
