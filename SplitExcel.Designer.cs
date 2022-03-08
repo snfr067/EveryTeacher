@@ -56,7 +56,7 @@
             // 
             this.tchFileP_txt.AutoSize = true;
             this.tchFileP_txt.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.tchFileP_txt.Location = new System.Drawing.Point(27, 77);
+            this.tchFileP_txt.Location = new System.Drawing.Point(27, 80);
             this.tchFileP_txt.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.tchFileP_txt.Name = "tchFileP_txt";
             this.tchFileP_txt.Size = new System.Drawing.Size(69, 20);
@@ -67,7 +67,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(645, 128);
+            this.ClientSize = new System.Drawing.Size(641, 128);
             this.Controls.Add(this.Over_btn);
             this.Controls.Add(this.tchFile_pbar);
             this.Controls.Add(this.tchFileP_txt);

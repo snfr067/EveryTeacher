@@ -23,43 +23,10 @@ namespace EveryTeacher
 {
     internal static class Program
     {
-        public static string APP_VERSION = "HeadersRead.22.03.07.01";
-
-        public static string HEADER_DEPERTMENT = "系所";
-        public static string HEADER_COLLEGE = "學院";
-        public static string HEADER_CLASS = "班級";
-        public static string HEADER_STUDENT_NUM = "學號";
-        public static string HEADER_STUDENT_NAME = "姓名";
-        public static string HEADER_STUDENT_PHONE = "學生手機";
-        public static string HEADER_RELIEF = "學雜費補助類別";
-
-        public static string MAIL_HEADER_TEACHERS = "導師姓名";
-        public static string MAIL_HEADER_TCH_EMAIL = "導師Email"; 
-
-
-        public static int INDEX_TCH_CLASS = 1;
-        public static int INDEX_TCH_STUDENT_NUM = 2;
-        public static int INDEX_TCH_STUDENT_NAME = 3;
-        public static int INDEX_TCH_STUDENT_PHONE = 4;
-        public static int INDEX_TCH_RELIEF = 5;
-
-        public static int INDEX_DEP_TCH_NAME = 1;
-        public static int INDEX_DEP_CLASS = 2;
-        public static int INDEX_DEP_STUDENT_NUM = 3;
-        public static int INDEX_DEP_STUDENT_NAME = 4;
-        public static int INDEX_DEP_STUDENT_PHONE = 5;
-        public static int INDEX_DEP_RELIEF = 6;
-
-        public static int INDEX_COL_DEP = 1;
-        public static int INDEX_COL_CLASS = 2;
-        public static int INDEX_COL_STUDENT_NUM = 3;
-        public static int INDEX_COL_STUDENT_NAME = 4;
-        public static int INDEX_COL_STUDENT_PHONE = 5;
-        public static int INDEX_COL_RELIEF = 6;
+        public static string APP_VERSION = "Free.22.03.08.01";
         
         public static int EXAMPLE_HEADER_ROW = 4;
         public static int ORIGIN_HEADER_ROW = 1;
-        public static int FIRST_DATA_ROW = 5;
 
         /// <summary>
         /// 應用程式的主要進入點。
@@ -67,6 +34,7 @@ namespace EveryTeacher
         [STAThread]
         static void Main()
         {
+            //以下是整合DLL檔案的設定
             string rsNPOI = "EveryTeacher.NPOI.dll";
             string rsOOXML = "EveryTeacher.NPOI.OOXML.dll";
             string rs4Net = "EveryTeacher.NPOI.OpenXml4Net.dll";
@@ -80,6 +48,7 @@ namespace EveryTeacher
             EmbeddedAssembly.Load(rsICSharp, "ICSharpCode.SharpZipLib.dll");
 
             AppDomain.CurrentDomain.AssemblyResolve += new ResolveEventHandler(CurrentDomain_AssemblyResolve);
+            //
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
@@ -173,10 +142,10 @@ namespace EveryTeacher
 
             //取得工作表的單元格
             //列(左至右)ABCDE, 行(上至下)12345
-            Excel.Range aRangeChange = Wsheet.get_Range("B7");
+            Excel.Range aRangeChange = Wsheet.get_Range("A1");
 
             //在工作表的特定儲存格，設定內容
-            aRangeChange.Value2 = "施argaza";
+            aRangeChange.Value2 = "測試";
 
             //設置禁止彈出保存和覆蓋的詢問提示框
             Wsheet.Application.DisplayAlerts = false;

@@ -316,7 +316,7 @@
     <value>12</value>
   </data>
   <data name="next_btn.Text" xml:space="preserve">
-    <value>下一頁</value>
+    <value>執行</value>
   </data>
   <data name="&gt;&gt;next_btn.Name" xml:space="preserve">
     <value>next_btn</value>

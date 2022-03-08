@@ -25,9 +25,7 @@ namespace EveryTeacher
     public partial class ImportPath : Form
     {
         static string ORIGIN_FILE_NAME = "原始檔.xlsx";
-        static string TEACHER_FILE_NAME = "範例檔導師.xlsx";
-        static string DEPARTMENT_FILE_NAME = "範例檔系主任.xlsx";
-        static string COLLEGE_FILE_NAME = "範例檔院長.xlsx";
+        static string TEACHER_FILE_NAME = "範例檔.xlsx";
         static string EXPORT_PATH_NAME = "輸出檔案";
 
         string[] headers;
@@ -36,8 +34,6 @@ namespace EveryTeacher
 
         string orgFilePath = "";
         string tchFilePath = "";
-        string depFilePath = "";
-        string colFilePath = "";
         string exportPath = "";
         
 
@@ -73,7 +69,7 @@ namespace EveryTeacher
             ckOrg_txt.Visible = false;
             ckTch_txt.Visible = false;
 
-            next_btn.Text = "下一頁";
+            next_btn.Text = "執行";
             next_btn.Enabled = true;
 
             header_combox.Enabled = true;
@@ -96,7 +92,7 @@ namespace EveryTeacher
             sendTo_combox.Text = "讀取中...";
             sendTo_combox.Enabled = false;
 
-            if (headers.Length != 0)
+            if (headers != null && headers.Length != 0)
             {
                 sendName_combox.Items.Add("");
                 sendTo_combox.Items.Add("");
@@ -126,7 +122,7 @@ namespace EveryTeacher
 
         private void importOrgPath_btn_Click(object sender, EventArgs e)
         {
-            fileName = ImportExcelFile();
+            fileName = ImportExcelFile(System.Windows.Forms.Application.StartupPath);
 
             if (!fileName.Equals(""))
             {
@@ -136,7 +132,7 @@ namespace EveryTeacher
         
         private void importTchPath_btn_Click(object sender, EventArgs e)
         {
-            fileName = ImportExcelFile();
+            fileName = ImportExcelFile(System.Windows.Forms.Application.StartupPath);
 
             if (!fileName.Equals(""))
                 importTchPath_txtbx.Text = fileName;
@@ -144,7 +140,7 @@ namespace EveryTeacher
         
         private void exportPath_btn_Click(object sender, EventArgs e)
         {
-            pathName = getSelectedFolderPath();
+            pathName = getSelectedFolderPath(System.Windows.Forms.Application.StartupPath);
 
             if (!pathName.Equals(""))
                 exportPath_txtbx.Text = pathName;
@@ -152,13 +148,9 @@ namespace EveryTeacher
 
         private void next_btn_Click(object sender, EventArgs e)
         {
-            //匯入檔案路徑
-            //匯出檔案路徑
-            //開始讀取
-            //開始複製, 寫入
-            //產生寄信設定
             string errorResult = "";
 
+            next_btn.Focus();
             next_btn.Text = "小等一下...";
             next_btn.Enabled = false;
 
@@ -217,7 +209,6 @@ namespace EveryTeacher
             string nextLine = "\n";
             string orgHeadersStr;
             string[] tchHeaders;
-            string[] mailData = { MAIL_HEADER_TEACHERS, MAIL_HEADER_TCH_EMAIL }; 
 
             int orgIndex = 1;            
             int tchIndex = 4;
@@ -264,20 +255,9 @@ namespace EveryTeacher
                         result += ORIGIN_FILE_NAME + "格式錯誤: 檔案標頭未包含[" + header_combox.SelectedItem.ToString() + "]" + nextLine;
                         setCheckString(ckOrg_txt, false);
                     }
-
-                    foreach (string data in mailData)
-                    {
-                        if (!orgHeadersStr.Contains(data))      //未包含，格式錯誤
-                        {
-                            result += ORIGIN_FILE_NAME + "格式錯誤: 檔案標頭未包含[" + data + "]" + nextLine;
-                            setCheckString(ckOrg_txt, false);
-                        }
-                    }
                     
-                    System.Diagnostics.Debug.WriteLine(result.Equals(""));
                     if (result.Equals(""))
                     {
-                        System.Diagnostics.Debug.WriteLine("result:"+result);
                         setCheckString(ckOrg_txt, true);
                     }
                 }
@@ -300,7 +280,7 @@ namespace EveryTeacher
         }
 
 
-        public String ImportExcelFile()
+        public String ImportExcelFile(string initDir)
         {
             string windowFilter = "Excel files|*.xlsx";
             string windowTitle = "匯入Excel資料";
@@ -308,6 +288,7 @@ namespace EveryTeacher
             OpenFileDialog openFileDialogFunction = new OpenFileDialog();
             openFileDialogFunction.Filter = windowFilter; //開窗搜尋副檔名
             openFileDialogFunction.Title = windowTitle; //開窗標題
+            openFileDialogFunction.InitialDirectory = initDir;
 
             DataTable dataTable = new DataTable();
 
@@ -320,9 +301,10 @@ namespace EveryTeacher
             return "";
         }
 
-        public string getSelectedFolderPath()
+        public string getSelectedFolderPath(string initDir)
         {
             FolderBrowserDialog openFolderDialog = new FolderBrowserDialog();
+            openFolderDialog.SelectedPath = initDir;
 
             if (openFolderDialog.ShowDialog() == DialogResult.OK)
             {

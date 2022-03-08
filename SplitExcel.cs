@@ -92,11 +92,6 @@ namespace EveryTeacher
             System.IO.FileInfo xlsAttribute;
             Excel.Worksheet Wsheet;
             Excel.Range row;
-            Excel.Range cellClass;
-            Excel.Range cellStNum;
-            Excel.Range cellStName;
-            Excel.Range cellStPhone;
-            Excel.Range cellRelief;
             Excel.Range[] cellHeaders;
             int tchWriteIndex = 5;
             int tchDataRowIndex = tchWriteIndex;
