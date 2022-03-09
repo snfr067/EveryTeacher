@@ -32,10 +32,6 @@ bin/Release/System.Runtime.CompilerServices.Unsafe.dll
 bin/Release/System.Runtime.CompilerServices.Unsafe.xml
 bin/Release/System.Threading.Tasks.Extensions.dll
 bin/Release/System.Threading.Tasks.Extensions.xml
-EveryTeacher.csproj
-excel.ico
-ImportPath.Designer.cs
-ImportPath.resx
 obj/Debug/.NETFramework,Version=v4.8.AssemblyAttributes.cs
 obj/Debug/DesignTimeResolveAssemblyReferences.cache
 obj/Debug/DesignTimeResolveAssemblyReferencesInput.cache
@@ -68,6 +64,4 @@ obj/Release/EveryTeacher.Properties.Resources.resources
 obj/Release/EveryTeacher.SplitExcel.resources
 obj/Release/TempPE/Properties.Resources.Designer.cs.dll
 .vs
-/*.config
-Properties
 /*.csproj

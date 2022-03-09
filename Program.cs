@@ -23,7 +23,7 @@ namespace EveryTeacher
 {
     internal static class Program
     {
-        public static string APP_VERSION = "Free.22.03.08.01";
+        public static string APP_VERSION = "Free.22.03.09.01";
         
         public static int EXAMPLE_HEADER_ROW = 4;
         public static int ORIGIN_HEADER_ROW = 1;
@@ -305,7 +305,7 @@ namespace EveryTeacher
 
             try
             {
-                StreamWriter sw = new StreamWriter(file, false, Encoding.Default);     //亂碼的話用UTF8
+                StreamWriter sw = new StreamWriter(file, false, Encoding.UTF8);     //亂碼的話用UTF8
                 sw.Write(csvData);
                 sw.Close();
             }
@@ -433,6 +433,26 @@ namespace EveryTeacher
 
             return vals;
         }
+        public static void genLogFile(string exportPath, int countExFiles)
+        {
+            string log = "";
 
+            log += "Export " + countExFiles + " Files" + "\n";
+            log += "Date: " + DateTime.Now.ToString() + "\n";
+            log += "Version: " + APP_VERSION + "\n"; 
+
+            try
+            {
+                StreamWriter sw = new StreamWriter(exportPath + "\\" + "輸出結果.txt", false, Encoding.UTF8);     
+                sw.Write(log);
+                sw.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Log檔案錯誤: " + ex.Message);
+            }
+        }
     }
+
+    
 }

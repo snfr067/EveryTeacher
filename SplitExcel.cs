@@ -73,16 +73,17 @@ namespace EveryTeacher
             tchFileP_txt.Text = "";
 
             tchFileP_txt.Text = "計算中...";
-            writeTchExcel(orgFilePath, exportPath, tchFilePath);        //產出給老師的檔案、寄信設定
+            int countExFiles = writeTchExcel(orgFilePath, exportPath, tchFilePath);        //產出給老師的檔案、寄信設定
 
             if(isSendMail)
                 genSendMailFile(sendMail, exportPath + "寄給所有人的.csv");
-            
+
+            genLogFile(exportPath, countExFiles);
 
             Over_btn.Text = "完成";
         }
         
-        public void writeTchExcel(string importPath, string exportPath, string tchFile)
+        public int writeTchExcel(string importPath, string exportPath, string tchFile)
         {
             string dstFile = "";
 
@@ -257,6 +258,8 @@ namespace EveryTeacher
             //離開應用程式
             App.Quit();
             KillExcelApp(App);
+
+            return fileCount;
         }
 
         
