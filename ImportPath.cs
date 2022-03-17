@@ -158,6 +158,9 @@ namespace EveryTeacher
             sendName_combox.Enabled = false;
             sendTo_combox.Enabled = false;
 
+            if (!exportPath_txtbx.Text.EndsWith("\\"))
+                exportPath_txtbx.Text = exportPath_txtbx.Text + "\\";
+
             errorResult = checkAnyError();
             if (!errorResult.Equals(""))
             {

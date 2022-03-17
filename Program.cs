@@ -23,7 +23,7 @@ namespace EveryTeacher
 {
     internal static class Program
     {
-        public static string APP_VERSION = "Free.22.03.09.01";
+        public static string APP_VERSION = "Free.22.03.17.01";
         
         public static int EXAMPLE_HEADER_ROW = 4;
         public static int ORIGIN_HEADER_ROW = 1;
@@ -277,26 +277,74 @@ namespace EveryTeacher
             }
         }
 
+
+        public static bool DataTableToExcel(DataTable dt, string path)
+        {
+            if (dt.Rows.Count == 0)
+                return false;
+            //建立Excel物件    
+            Excel.Application excel = new Excel.Application();
+            Excel.Workbook Wbook = excel.Application.Workbooks.Add(true);
+            Excel.Worksheet Wsheet = (Excel.Worksheet)Wbook.Sheets[1];
+            DataRow row;
+
+            //生成欄位名稱    
+            for (int i = 0; i < dt.Columns.Count; i++)
+            {
+                Wsheet.Cells[1, i + 1] = dt.Columns[i].ColumnName;
+            }
+            //填充資料    
+            for (int i = 0; i < dt.Rows.Count; i++)
+            {
+                row = dt.Rows[i];
+                for (int j = 0; j < dt.Columns.Count; j++)
+                {
+                    Wsheet.Cells[i + 2, j + 1] = "'" + row[j].ToString();
+                    Wsheet.Columns.ColumnWidth = 20;
+                }
+            }
+
+            //設置禁止彈出保存和覆蓋的詢問提示框
+            excel.Application.DisplayAlerts = false;
+            excel.Application.AlertBeforeOverwriting = false;
+
+            //保存工作表，因為禁止彈出儲存提示框，所以需在此儲存，否則寫入的資料會無法儲存
+            Wbook.SaveAs(path);
+
+            Wbook.Close();
+
+            //離開應用程式
+            excel.Quit();
+            Program.KillExcelApp(excel);
+
+            return true;
+        }
+
         public static void genSendMailFile(SendMail[] smobjs, string file)
         {
-            string csvData =
-                nameof(SendMail.SendName) + "," +
-                nameof(SendMail.Sendto) + "," +
-                nameof(SendMail.CC) + "," +
-                nameof(SendMail.Attach) + "," +
-                nameof(SendMail.Title) + "," +
-                nameof(SendMail.Subject) + "\n";
+            DataTable sendTable = new DataTable();
+            DataRow row;
+            DataColumn column;
+            string[] headers = SendMail.getAllHeadersText();
+            string[] smobjsText;
+
+            foreach (string header in headers)
+            {
+                column = new DataColumn(header);
+                sendTable.Columns.Add(column);
+            }
 
             foreach (SendMail sendMail in smobjs)
             {
                 if (sendMail != null)
                 {
-                    csvData += sendMail.SendName + ",";
-                    csvData += sendMail.Sendto + ",";
-                    csvData += sendMail.CC + ",";
-                    csvData += sendMail.Attach + ",";
-                    csvData += sendMail.Title + ",";
-                    csvData += sendMail.Subject + "\n";
+                    row = sendTable.NewRow();
+                    smobjsText = sendMail.getAllItemsText();
+                    for (int i = 0; i < smobjsText.Length; i++)
+                    {
+                        row[i] = smobjsText[i];
+                    }
+                    sendTable.Rows.Add(row);
                 }
                 else
                     break;
@@ -305,9 +353,10 @@ namespace EveryTeacher
 
             try
             {
-                StreamWriter sw = new StreamWriter(file, false, Encoding.UTF8);     //亂碼的話用UTF8
+                /*StreamWriter sw = new StreamWriter(file, false, Encoding.UTF8);     //亂碼的話用UTF8
                 sw.Write(csvData);
-                sw.Close();
+                sw.Close();*/
+                DataTableToExcel(sendTable, file);
             }
             catch (Exception ex)
             {
@@ -433,17 +482,26 @@ namespace EveryTeacher
 
             return vals;
         }
-        public static void genLogFile(string exportPath, int countExFiles)
+        public static void genLogFile(string orgPath, string splitHeader, string examplePath, string exportPath, 
+            bool isSendMail, string sendName, string sendTo, int countExFiles)
         {
             string log = "";
 
             log += "Export " + countExFiles + " Files" + "\n";
+            log += "orgPath: " + orgPath + "\n";
+            log += "splitHeader: " + splitHeader + "\n";
+            log += "examplePath: " + examplePath + "\n";
+            log += "exportPath: " + exportPath + "\n";
+            log += "isSendMail: " + isSendMail + "\n";
+            log += "sendName: " + sendName + "\n";
+            log += "sendTo: " + sendTo + "\n";
             log += "Date: " + DateTime.Now.ToString() + "\n";
             log += "Version: " + APP_VERSION + "\n"; 
 
             try
             {
-                StreamWriter sw = new StreamWriter(exportPath + "\\" + "輸出結果.txt", false, Encoding.UTF8);     
+                StreamWriter sw = new StreamWriter(exportPath + "\\" + 
+                    "輸出結果("+ DateTime.Now.ToString("yyyyMMddHHmmss")+").txt", false, Encoding.UTF8);     
                 sw.Write(log);
                 sw.Close();
             }

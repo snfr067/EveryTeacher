@@ -580,13 +580,13 @@
     <value>49, 415</value>
   </data>
   <data name="need_mail_cbx.Size" type="System.Drawing.Size, System.Drawing">
-    <value>215, 24</value>
+    <value>219, 24</value>
   </data>
   <data name="need_mail_cbx.TabIndex" type="System.Int32, mscorlib">
     <value>28</value>
   </data>
   <data name="need_mail_cbx.Text" xml:space="preserve">
-    <value>產出「寄給所有人的.csv」</value>
+    <value>產出「寄給所有人的.xlsx」</value>
   </data>
   <data name="&gt;&gt;need_mail_cbx.Name" xml:space="preserve">
     <value>need_mail_cbx</value>

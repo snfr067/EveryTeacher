@@ -74,11 +74,12 @@ namespace EveryTeacher
 
             tchFileP_txt.Text = "計算中...";
             int countExFiles = writeTchExcel(orgFilePath, exportPath, tchFilePath);        //產出給老師的檔案、寄信設定
-
+            
             if(isSendMail)
-                genSendMailFile(sendMail, exportPath + "寄給所有人的.csv");
+                genSendMailFile(sendMail, exportPath + "寄給所有人的.xlsx");
 
-            genLogFile(exportPath, countExFiles);
+            genLogFile(orgFilePath, splitHeader, tchFilePath, exportPath, 
+                isSendMail, sendNameHeader, sendToHeader, countExFiles);
 
             Over_btn.Text = "完成";
         }
